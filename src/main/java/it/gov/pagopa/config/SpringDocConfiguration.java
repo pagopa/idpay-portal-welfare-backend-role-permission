@@ -19,14 +19,6 @@ public class SpringDocConfiguration {
                     .description("Description TBD")
                     .version("1.0")
             )
-            .components(
-                new Components()
-                    .addSecuritySchemes("bearerAuth", new SecurityScheme()
-                        .type(SecurityScheme.Type.HTTP)
-                        .scheme("bearer")
-                        .bearerFormat("JWT")
-                    )
-            )
         ;
     }
 }
