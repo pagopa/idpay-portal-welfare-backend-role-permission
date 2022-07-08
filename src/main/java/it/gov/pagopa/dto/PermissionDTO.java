@@ -13,24 +13,13 @@ import lombok.Data;
 })
 @Data
 public class PermissionDTO {
-  public static final String JSON_PROPERTY_ID = "id";
-  private String id;
-
-  public static final String JSON_PROPERTY_NAME = "name";
+  public static final String JSON_PROPERTY_ID = "name";
   private String name;
 
+  public static final String JSON_PROPERTY_NAME = "description";
+  private String description;
+
   public static final String JSON_PROPERTY_MODE = "mode";
-  private Mode mode;
-
-  public enum Mode{
-    R("READ"),
-    W("WRITE");
-
-    private String mode;
-
-    Mode(String mode) {
-      this.mode = mode;
-    }
-  }
+  private String mode;
 }
 

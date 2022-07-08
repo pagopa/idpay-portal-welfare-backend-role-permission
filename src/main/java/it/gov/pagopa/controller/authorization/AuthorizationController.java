@@ -2,6 +2,7 @@ package it.gov.pagopa.controller.authorization;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -11,10 +12,7 @@ import it.gov.pagopa.dto.ErrorDTO;
 import it.gov.pagopa.dto.UserPermissionDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -24,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Validated
 @Tag(name = "UserPermission", description = "")
-//@RequestMapping("/idpay/welfare/authorization")
+@RequestMapping("${openapi.idPayWelfarePortalUserPermissions.base-path:/idpay/welfare/authorization}")
 public interface AuthorizationController {
 
     /**
@@ -54,16 +52,18 @@ public interface AuthorizationController {
                     })
             },
             security = {
-                    @SecurityRequirement(name = "apiKeyHeader"),
-                    @SecurityRequirement(name = "apiKeyQuery")
+                    @SecurityRequirement(name = "bearerAuth")
             }
     )
     @RequestMapping(
             method = RequestMethod.GET,
-            value = "/permissions",
+            value = "/permissions/{role}",
             produces = { "application/json" }
     )
-    ResponseEntity<UserPermissionDTO> getUserPermissions(HttpServletRequest request) throws JsonProcessingException;
+    ResponseEntity<UserPermissionDTO> getUserPermissions(
+            @Parameter(name = "role", description = "Role Type (eg. admin & ope_base)", required = true)
+            @PathVariable("role") String role
+    ) throws JsonProcessingException;
 
 }
 

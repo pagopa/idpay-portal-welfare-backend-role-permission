@@ -2,7 +2,8 @@ package it.gov.pagopa.service;
 
 import it.gov.pagopa.dto.PermissionDTO;
 import it.gov.pagopa.dto.UserPermissionDTO;
-import it.gov.pagopa.model.Role;
+import it.gov.pagopa.model.Permission;
+import it.gov.pagopa.model.RolePermission;
 import it.gov.pagopa.repository.RoleRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,16 +21,32 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public UserPermissionDTO getUserPermission(String roleType) {
-        Optional<Role> roleOptional = roleRepository.findByType(roleType);
+        Optional<RolePermission> roleOptional = roleRepository.findByRole(roleType);
         if(roleOptional.isPresent()){
-            Role role = roleOptional.get();
-            UserPermissionDTO userPermissionDTO = new UserPermissionDTO();
-            userPermissionDTO.setRole(role.getType());
-            List<PermissionDTO> permissionDTOList = new ArrayList<>();
-            BeanUtils.copyProperties(role.getPermissionList(), permissionDTOList, "description");
-            userPermissionDTO.setPermissions(permissionDTOList);
-            return userPermissionDTO;
+            return rolePermissionToDTO(roleOptional.get());
         }
         return null;
     }
+
+    private UserPermissionDTO rolePermissionToDTO(RolePermission rolePermission) {
+        UserPermissionDTO userPermissionDTO = new UserPermissionDTO();
+        userPermissionDTO.setRole(rolePermission.getRole());
+        List<PermissionDTO> permissionDTOList = new ArrayList<>();
+//            BeanUtils.copyProperties(role.getPermissions(), permissionDTOList, "description");
+        for (Permission source: rolePermission.getPermissions() ) {
+            PermissionDTO permissionDTO= new PermissionDTO();
+            BeanUtils.copyProperties(source , permissionDTO);
+            permissionDTOList.add(permissionDTO);
+        }
+        userPermissionDTO.setPermissions(permissionDTOList);
+        return userPermissionDTO;
+    }
+
+    public void saveRole() {
+        RolePermission rolePermission = new RolePermission();
+        rolePermission.setRole("test");
+        rolePermission.setDescription("testDesc");
+        roleRepository.save(rolePermission);
+    }
+
 }

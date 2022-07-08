@@ -18,23 +18,28 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("${openapi.idPayWelfarePortalUserPermissions.base-path:/idpay/welfare/authorization}")
 //@RequestMapping("/idpay/welfare/authorization")
 public class AuthorizationControllerImpl implements AuthorizationController {
 
     @Autowired
     RoleService roleService;
 
-    @Override
-    public ResponseEntity<UserPermissionDTO> getUserPermissions(HttpServletRequest request) throws JsonProcessingException {
+//    @Override
+//    public ResponseEntity<UserPermissionDTO> getUserPermissions(HttpServletRequest request) throws JsonProcessingException {
+//
+//        TokenPayloadDTO payloadFromHeaderToken = getPayloadFromHeaderToken(request);
+//        List<RolesRequestTokenDTO> roles = payloadFromHeaderToken.getOrganizationRequestTokenDTO().getRoles();
+//        Optional<RolesRequestTokenDTO> firstRole = roles.stream().findFirst();
+//        if(firstRole.isPresent()){
+//            roleService.getUserPermission(firstRole.get().getRole());
+//        }
+//        return new ResponseEntity<UserPermissionDTO>(HttpStatus.OK);
+//    }
 
-        TokenPayloadDTO payloadFromHeaderToken = getPayloadFromHeaderToken(request);
-        List<RolesRequestTokenDTO> roles = payloadFromHeaderToken.getOrganizationRequestTokenDTO().getRoles();
-        Optional<RolesRequestTokenDTO> firstRole = roles.stream().findFirst();
-        if(firstRole.isPresent()){
-            roleService.getUserPermission(firstRole.get().getRole());
-        }
-        return new ResponseEntity<UserPermissionDTO>(HttpStatus.OK);
+    @Override
+    public ResponseEntity<UserPermissionDTO> getUserPermissions(String role) throws JsonProcessingException {
+        UserPermissionDTO userPermissionDTO = roleService.getUserPermission(role);
+        return new ResponseEntity<UserPermissionDTO>(userPermissionDTO, HttpStatus.OK);
     }
 
     private TokenPayloadDTO getPayloadFromHeaderToken(HttpServletRequest request) throws JsonProcessingException {

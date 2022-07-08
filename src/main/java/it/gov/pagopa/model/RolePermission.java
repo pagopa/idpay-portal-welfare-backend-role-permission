@@ -11,19 +11,18 @@ import java.util.List;
 
 @Getter
 @Setter
-@Document("role")
-public class Role {
+@Document("role_permission")
+public class RolePermission {
 
     @Id
 //    private ObjectId id;
     private String id;
 
     //    @Field("role")
-    private String type;
+    private String role;
 
     private String description;
 
-    @DocumentReference
-    private List<Permission> permissionList;
+    private List<Permission> permissions;
 
 }
