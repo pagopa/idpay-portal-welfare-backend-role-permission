@@ -1,5 +1,7 @@
 package it.gov.pagopa.error;
 
+import it.gov.pagopa.dto.ErrorDTO;
+import it.gov.pagopa.exception.AuthorizationPermissionException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -47,6 +49,11 @@ public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler
 //    final String bodyOfResponse = "This should be application specific";
 //    return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
 //  }
+    @ExceptionHandler({AuthorizationPermissionException.class})
+    public ResponseEntity<ErrorDTO> handleException(AuthorizationPermissionException ex) {
+        return new ResponseEntity<>(new ErrorDTO(ex.getCode(), ex.getMessage()),
+                HttpStatus.valueOf(ex.getCode()));
+    }
 
     // 409
     @ExceptionHandler({ InvalidDataAccessApiUsageException.class, DataAccessException.class })

@@ -1,7 +1,6 @@
 package it.gov.pagopa.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
@@ -9,9 +8,11 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
 
-@Getter
-@Setter
+@Data
 @Document("role_permission")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class RolePermission {
 
     @Id

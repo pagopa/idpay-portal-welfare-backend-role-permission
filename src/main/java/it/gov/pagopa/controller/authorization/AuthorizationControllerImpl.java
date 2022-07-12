@@ -3,26 +3,22 @@ package it.gov.pagopa.controller.authorization;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.gov.pagopa.dto.UserPermissionDTO;
-import it.gov.pagopa.dto.request.header.RolesRequestTokenDTO;
 import it.gov.pagopa.dto.request.header.TokenPayloadDTO;
-import it.gov.pagopa.service.RoleService;
+import it.gov.pagopa.service.RolePermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Base64;
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 //@RequestMapping("/idpay/welfare/authorization")
 public class AuthorizationControllerImpl implements AuthorizationController {
 
     @Autowired
-    RoleService roleService;
+    RolePermissionService rolePermissionService;
 
 //    @Override
 //    public ResponseEntity<UserPermissionDTO> getUserPermissions(HttpServletRequest request) throws JsonProcessingException {
@@ -38,7 +34,7 @@ public class AuthorizationControllerImpl implements AuthorizationController {
 
     @Override
     public ResponseEntity<UserPermissionDTO> getUserPermissions(String role) throws JsonProcessingException {
-        UserPermissionDTO userPermissionDTO = roleService.getUserPermission(role);
+        UserPermissionDTO userPermissionDTO = rolePermissionService.getUserPermission(role);
         return new ResponseEntity<UserPermissionDTO>(userPermissionDTO, HttpStatus.OK);
     }
 

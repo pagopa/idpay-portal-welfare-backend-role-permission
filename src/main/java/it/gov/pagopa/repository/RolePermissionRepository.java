@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface RoleRepository extends MongoRepository<RolePermission, String> {
+public interface RolePermissionRepository extends MongoRepository<RolePermission, String> {
 
     Optional<RolePermission> findByRole(String roleType);
 

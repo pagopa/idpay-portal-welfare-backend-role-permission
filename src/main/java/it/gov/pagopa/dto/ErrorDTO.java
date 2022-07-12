@@ -1,7 +1,9 @@
 package it.gov.pagopa.dto;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * ErrorDTO
@@ -11,6 +13,8 @@ import lombok.Data;
   ErrorDTO.JSON_PROPERTY_MESSAGE
 })
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ErrorDTO {
   public static final String JSON_PROPERTY_CODE = "code";
   private Integer code;
