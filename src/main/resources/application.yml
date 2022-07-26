@@ -1,0 +1,9 @@
+spring.application.name: "@project.parent.artifactId@"
+spring.application.version: "@project.version@"
+
+spring.data.mongodb.database: ${MONGODB_DBNAME}
+spring.data.mongodb.uri: ${MONGODB_URI}
+
+portal.welfare.tos.privacy: https://github.com/pagopa/idpay-portal-welfare-tos/tree/main/privacy
+portal.welfare.tos.tc: https://github.com/pagopa/idpay-portal-welfare-tos/tree/main/tc
+

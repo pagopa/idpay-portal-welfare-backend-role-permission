@@ -126,7 +126,7 @@ class RolePermisssionServiceTest {
             rolePermissionService.getUserPermission(anyString());
         } catch (AuthorizationPermissionException e) {
             log.info("AuthorizationPermissionException: " + e.getCode());
-            assertEquals(HttpStatus.NOT_FOUND.value(), e.getCode());
+            assertEquals(HttpStatus.NOT_FOUND.name(), e.getCode());
         }
     }
 

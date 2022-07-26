@@ -16,8 +16,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ErrorDTO {
+
   public static final String JSON_PROPERTY_CODE = "code";
-  private Integer code;
+  private String code;
 
   public static final String JSON_PROPERTY_MESSAGE = "message";
   private String message;

@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -13,6 +14,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AcceptancesHistory {
-    private LocalDate acceptedDate;
+    private LocalDateTime acceptedDateTime;
     private List<Consent> consents;
 }

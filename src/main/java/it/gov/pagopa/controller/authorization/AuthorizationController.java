@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Validated
 @Tag(name = "UserPermission", description = "")
-@RequestMapping("${openapi.idPayWelfarePortalUserPermissions.base-path:/idpay/welfare/authorization}")
+@RequestMapping("${openapi.idPayWelfarePortalUserPermissions.base-path:/idpay/authorization}")
 public interface AuthorizationController {
 
     /**

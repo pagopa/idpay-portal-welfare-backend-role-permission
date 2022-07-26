@@ -24,7 +24,7 @@ public class RolePermissionPermissionServiceImpl implements RolePermissionServic
     @Override
     public UserPermissionDTO getUserPermission(String roleType) {
         RolePermission roleOptional = rolePermissionRepository.findByRole(roleType).orElseThrow(() ->
-                new AuthorizationPermissionException(HttpStatus.NOT_FOUND.value(),
+                new AuthorizationPermissionException(HttpStatus.NOT_FOUND.name(),
                         String.format(PERMISSIONS_NOT_FOUND, roleType))
         );
         return rolePermissionToDTO(roleOptional);

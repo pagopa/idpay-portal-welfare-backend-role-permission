@@ -59,7 +59,7 @@ class AuthorizationControllerTest {
     @Autowired
     protected MockMvc mvc;
 
-    private static final String BASE_URL = "http://localhost:8080/idpay/welfare/authorization";
+    private static final String BASE_URL = "http://localhost:8080/idpay/authorization";
     private static final String PERMISSIONS_URL = "/permissions/";
     private static final String ROLE = "TEST_ROLE";
 
@@ -133,7 +133,7 @@ class AuthorizationControllerTest {
 
     @Test
     void shouldReturnNotFound() throws Exception {
-        Mockito.doThrow(new AuthorizationPermissionException(HttpStatus.NOT_FOUND.value(),
+        Mockito.doThrow(new AuthorizationPermissionException(HttpStatus.NOT_FOUND.name(),
                 String.format(RolePermissionService.PERMISSIONS_NOT_FOUND, ROLE)))
                 .when(rolePermissionServiceMock).getUserPermission(anyString());
 

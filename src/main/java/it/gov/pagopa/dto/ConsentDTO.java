@@ -1,19 +1,31 @@
 package it.gov.pagopa.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import javax.validation.Valid;
 
+/**
+ * ConsentDTO
+ */
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ConsentDTO {
-    @JsonProperty("consentCommittedDate")
-    private LocalDate consentCommittedDate;
 
-    @JsonProperty("label")
-    private String label;
+  @JsonProperty("accepted")
+  private Boolean accepted;
 
-    @JsonProperty("sha")
-    private String sha;
+  @JsonProperty("changed")
+  private Boolean changed;
 
-    @JsonProperty("link")
-    private String link;
+  @JsonProperty("consents")
+  @Valid
+  private ConsentItemDTO consents;
+
 }
