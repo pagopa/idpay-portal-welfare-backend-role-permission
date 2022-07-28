@@ -22,7 +22,6 @@ public class ConsentApiController implements ConsentApi {
     @Autowired
     private ConsentService consentService;
 
-
     @Override
     public ResponseEntity<ConsentDTO> retrieveConsent(String userId, String acceptLanguage) {
         return ResponseEntity.ok(this.consentService.retrieveConsent(userId, acceptLanguage));
@@ -30,6 +29,7 @@ public class ConsentApiController implements ConsentApi {
 
     @Override
     public ResponseEntity<Void> saveConsent(String userId, String acceptLanguage, List<ConsentItemDTO> body) {
-        return null;
+        this.consentService.saveConsent(userId, acceptLanguage, body);
+        return ResponseEntity.noContent().build();
     }
 }

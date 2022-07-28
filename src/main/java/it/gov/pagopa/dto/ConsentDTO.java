@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * ConsentDTO
@@ -26,6 +27,6 @@ public class ConsentDTO {
 
   @JsonProperty("consents")
   @Valid
-  private ConsentItemDTO consents;
+  private List<ConsentItemDTO> consents;
 
 }

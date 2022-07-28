@@ -3,8 +3,14 @@ package it.gov.pagopa.dto;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.validation.annotation.Validated;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * ConsentItemDTO
@@ -12,6 +18,9 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ConsentItemDTO   {
   /**
    * Gets or Sets label
@@ -45,13 +54,14 @@ public class ConsentItemDTO   {
     }
   }
   @JsonProperty("label")
-  private LabelEnum label = null;
+  @NotBlank
+  private LabelEnum label;
 
   @JsonProperty("sha")
-  private String sha = null;
+  @NotBlank
+  private String sha;
 
   @JsonProperty("url")
-  private String url = null;
-
+  private String url;
 
 }

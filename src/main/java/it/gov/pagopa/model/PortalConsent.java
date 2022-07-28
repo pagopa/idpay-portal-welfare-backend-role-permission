@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -21,8 +22,14 @@ public class PortalConsent {
 
     @Id
     private String userId;
-    private LocalDateTime acceptDatetim;
+    private LocalDateTime acceptDatetime;
     private List<Consent> consents; //blocco di consensi
     private List<AcceptancesHistory> history; //storico accettazioni
 
+    public void addAcceptancesHistory(AcceptancesHistory newAcceptancesHistory){
+        if(history==null){
+            history = new ArrayList<>();
+        }
+        history.add(newAcceptancesHistory);
+    }
 }

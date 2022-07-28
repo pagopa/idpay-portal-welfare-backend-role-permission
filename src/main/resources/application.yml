@@ -4,6 +4,17 @@ spring.application.version: "@project.version@"
 spring.data.mongodb.database: ${MONGODB_DBNAME}
 spring.data.mongodb.uri: ${MONGODB_URI}
 
-portal.welfare.tos.privacy: https://github.com/pagopa/idpay-portal-welfare-tos/tree/main/privacy
-portal.welfare.tos.tc: https://github.com/pagopa/idpay-portal-welfare-tos/tree/main/tc
+consent-config:
+ githubCommitsUri: 'https://api.github.com/repos/PagoPA/idpay-portal-welfare-tos/commits?per_page=1&page=1&path=%s/%s_%s.%s'
+ allowedLocals: it,en
+ consentMap:
+    privacy:
+      rawUrl: 'https://raw.githubusercontent.com/pagopa/idpay-portal-welfare-tos/main/%s/%s_%s.%s'
+      filename: privacy
+      extension: md
+    tc:
+      rawUrl: 'https://raw.githubusercontent.com/pagopa/idpay-portal-welfare-tos/main/%s/%s_%s.%s'
+      filename: tc
+      extension: md
+
 

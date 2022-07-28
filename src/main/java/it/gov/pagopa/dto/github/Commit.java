@@ -1,17 +1,17 @@
-package it.gov.pagopa.model;
+package it.gov.pagopa.dto.github;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-
-@Data
 @Builder
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Consent {
-    private LabelEnum label;
-    private String sha;
+public class Commit {
+
+  private Committer committer;
+  private Author author;
+
 }
