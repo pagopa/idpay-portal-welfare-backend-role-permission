@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Validated
 @Tag(name = "PortalConsent", description = "")
-@RequestMapping("${openapi.idPayWelfarePortalUserPermissions.base-path:/idpay/welfare}")
+@RequestMapping("${openapi.idPayWelfarePortalUserPermissions.base-path:/idpay}")
 public interface PortalConsentController {
     @Operation(
             operationId = "getPortalConsent",

@@ -3,23 +3,48 @@ microservice-chart:
   nameOverride: ""
   fullnameOverride: ""
 
-  image:
-    repository: cstardcommonacr.azurecr.io/idpayportalwelfarebackendrolepermission
-    tag: latest
-    pullPolicy: Always
+
+  livenessProbe:
+    httpGet:
+      path: /actuator/health
+      port: 8080
+    initialDelaySeconds: 60
+    failureThreshold: 6
+    periodSeconds: 10
+
+  readinessProbe:
+    httpGet:
+      path: /actuator/health
+      port: 8080
+    initialDelaySeconds: 60
+    failureThreshold: 6
+    periodSeconds: 10
+
+  deployment:
+    create: true
+
+  service:
+    create: true
+    type: ClusterIP
+    port: 8080
 
   ingress:
-    host: "dev01.idpay.internal.dev.cstar.pagopa.it"
+    create: true
+    path: /idpayportalwelfarebackendrolepermission/(.*)
 
+  serviceAccount:
+    create: false
+    annotations: {}
+    name: ""
 
+  podAnnotations: {}
 
-  resources:
-    requests:
-      memory: "256Mi"
-      cpu: "40m"
-    limits:
-      memory: "1Gi"
-      cpu: "200m"
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+
+  securityContext:
+    allowPrivilegeEscalation: false
 
 #  autoscaling:
 #    enable: true
@@ -41,12 +66,12 @@ microservice-chart:
 #          metricAggregationType: Count
 #          targetValue: "30"
 
-  envSecret:
-    aks-api-url: cstar-d-weu-dev01-aks-apiserver-url
+  envConfig:
+    MONGODB_DBNAME: idpay
 
-  keyvault:
-    name: "cstar-d-idpay-kv"
-    tenantId: "7788edaf-0346-4068-9d79-c868aed15b3d"
+  envSecret:
+    MONGODB_URI: mongodb-connection-string
+
 
   # nodeSelector: {}
 
