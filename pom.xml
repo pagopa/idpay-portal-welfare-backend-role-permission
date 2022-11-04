@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.6.7</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <groupId>it.gov.pagopa</groupId>
+    <artifactId>idpay-portal-welfare-backend-rolePermission-permission</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>idpay-portal-welfare-backend-rolePermission-permission</name>
+    <description>Portal Welfare BackEnd Role Permission</description>
+    <properties>
+        <java.version>17</java.version>
+        <springdoc.version>1.6.9</springdoc.version>
+    </properties>
+
+    <dependencies>
+        <!--SB STARTER-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-data-rest</artifactId>-->
+<!--        </dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <!-- <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-stream-kafka</artifactId>
+        </dependency> -->
+
+
+        <!--3rd party library-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+        <!--OpenAPI SpringDOC-->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>${springdoc.version}</version>
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springdoc</groupId>-->
+<!--            <artifactId>springdoc-openapi-data-rest</artifactId>-->
+<!--            <version>${springdoc.version}</version>-->
+<!--        </dependency>-->
+
+        <!--TEST-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion><!-- exclude junit 4 -->
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- junit 5 -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit-jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- MongoDB Embedded -->
+        <dependency>
+            <groupId>de.flapdoodle.embed</groupId>
+            <artifactId>de.flapdoodle.embed.mongo</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>cz.jirutka.spring</groupId>-->
+        <!--            <artifactId>embedmongo-spring</artifactId>-->
+        <!--            <version>RELEASE</version>-->
+        <!--        </dependency>-->
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.openapitools</groupId>-->
+<!--                <artifactId>openapi-generator-maven-plugin</artifactId>-->
+<!--                &lt;!&ndash; RELEASE_VERSION &ndash;&gt;-->
+<!--                <version>6.0.1</version>-->
+<!--                &lt;!&ndash; /RELEASE_VERSION &ndash;&gt;-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>openapi-generator</id>-->
+<!--                        <phase>generate-sources</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>generate</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <inputSpec>IdPay-WelfarePortalUserPermissions.openapi.yaml</inputSpec>-->
+<!--&lt;!&ndash;                            <generatorName>openapi</generatorName>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <generatorName>spring</generatorName>&ndash;&gt;-->
+<!--                            <generatorName>java</generatorName>-->
+<!--                            <configOptions>-->
+<!--&lt;!&ndash;                                <outputFileName>openapi.json</outputFileName>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <serializableModel>true</serializableModel>&ndash;&gt;-->
+<!--                                <groupId>${project.groupId}</groupId>-->
+<!--                                <artifactId>${project.artifactId}</artifactId>-->
+<!--                                <version>${project.version}</version>-->
+<!--                                <sourceFolder>src/main/java</sourceFolder>-->
+<!--                                <dateLibrary>java17</dateLibrary>-->
+<!--&lt;!&ndash;                                <basePackage>it.gov.pagopa</basePackage>&ndash;&gt;-->
+<!--                                <invokerPakage>it.gov.pagopa</invokerPakage>-->
+<!--                                <configPackage>it.gov.pagopa.config</configPackage>-->
+<!--                                <modelPackage>it.gov.pagopa.dto</modelPackage>-->
+<!--                                <apiPackage>it.gov.pagopa.controller</apiPackage>-->
+<!--                                <library>resttemplate</library>-->
+<!--                                <openApiNullable>false</openApiNullable>-->
+<!--                            </configOptions>-->
+<!--&lt;!&ndash;                            <output>${project.build.directory}/generated-sources/openapi</output>&ndash;&gt;-->
+<!--                            <output>${project.basedir}</output>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+        </plugins>
+    </build>
+
+</project>
