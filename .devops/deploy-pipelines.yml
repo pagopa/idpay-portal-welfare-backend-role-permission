@@ -58,6 +58,7 @@ variables:
     containerRegistry: '$(PROD_CONTAINER_REGISTRY_NAME)'
     selfHostedAgentPool: $(PROD_AGENT_POOL)
     # postman environment secure file - not used in prod
+    postmanEnvFile: idpay_uat.postman_environment.json
 
   ${{ else }}:
     environment: 'DEV'
