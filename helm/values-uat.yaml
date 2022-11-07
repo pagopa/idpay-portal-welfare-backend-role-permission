@@ -11,8 +11,6 @@ microservice-chart:
   ingress:
     host: "uat01.idpay.internal.uat.cstar.pagopa.it"
 
-
-
   resources:
     requests:
       memory: "256Mi"
