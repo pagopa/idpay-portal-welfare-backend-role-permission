@@ -11,8 +11,6 @@ microservice-chart:
   ingress:
     host: "dev01.idpay.internal.dev.cstar.pagopa.it"
 
-
-
   resources:
     requests:
       memory: "256Mi"
