@@ -1,4 +1,4 @@
-package it.gov.pagopa.controller;
+package it.gov.pagopa.controller.consent;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.v3.oas.annotations.Operation;
@@ -12,9 +12,7 @@ import it.gov.pagopa.dto.PortalConsentDTO;
 import it.gov.pagopa.dto.UserPermissionDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 @Validated
 @Tag(name = "PortalConsent", description = "")
@@ -75,10 +73,9 @@ public interface PortalConsentController {
                     })
             }
     )
-    @RequestMapping(
-            method = RequestMethod.PUT,
+    @PostMapping(
             value = "/consent",
             consumes = {"application/json"}
     )
-     ResponseEntity<PortalConsentDTO> savePortalConsent(@RequestHeader(value = "Content-Language") String contentLanguage) throws JsonProcessingException;
+     ResponseEntity<PortalConsentDTO> savePortalConsent(@RequestBody PortalConsentDTO consent) throws JsonProcessingException;
 }
