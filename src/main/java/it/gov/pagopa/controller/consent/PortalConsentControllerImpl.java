@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-//@RequestMapping("/idpay/portal/consent")
 public class PortalConsentControllerImpl implements PortalConsentController {
 
     @Autowired
@@ -23,7 +22,6 @@ public class PortalConsentControllerImpl implements PortalConsentController {
     private String linkTc;
 
     @Override
-    //@ResponseStatus(HttpStatus.OK)
     public ResponseEntity<PortalConsentDTO> getPortalConsent(String userId) throws JsonProcessingException {
         PortalConsentDTO consentDTO = portalConsentService.get(userId);
 
@@ -33,7 +31,6 @@ public class PortalConsentControllerImpl implements PortalConsentController {
     }
 
     @Override
-    //@ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Void> savePortalConsent(String userId, PortalConsentDTO consent) throws JsonProcessingException{
         portalConsentService.save(userId, consent);
         return ResponseEntity.ok().build();

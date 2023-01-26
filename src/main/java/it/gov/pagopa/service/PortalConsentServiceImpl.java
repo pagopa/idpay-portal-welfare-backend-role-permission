@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -45,13 +46,18 @@ public class PortalConsentServiceImpl implements PortalConsentService{
 
     @Override
     public void save(String userId, PortalConsentDTO consentDTO) {
-        PrivacyNoticesDTO privacyNotices = oneTrustRestService.getPrivacyNotices(tosId, consentDTO.getAcceptDate());
+        LocalDateTime now = LocalDateTime.now();
+        PrivacyNoticesDTO privacyNotices = oneTrustRestService.getPrivacyNotices(tosId, now);
 
-        PortalConsent consent = new PortalConsent(
-                userId,
-                consentDTO.getAcceptDate(),
-                privacyNotices.getVersion().getId()
-        );
-        portalConsentRepository.save(consent);
+        if (!consentDTO.getVersionId().equals(privacyNotices.getVersion().getId())) {
+            // TODO error
+        } else {
+            PortalConsent consent = new PortalConsent(
+                    userId,
+                    now,
+                    consentDTO.getVersionId()
+            );
+            portalConsentRepository.save(consent);
+        }
     }
 }

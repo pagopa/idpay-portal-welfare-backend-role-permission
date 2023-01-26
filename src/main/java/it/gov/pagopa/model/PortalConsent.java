@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 public class PortalConsent {
     @Id
     private String userId;
-    private LocalDateTime acceptDate;
+    private LocalDateTime acceptanceDate;
     private String versionId;
     /*
     TODO keep it?
