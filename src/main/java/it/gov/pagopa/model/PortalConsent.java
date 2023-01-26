@@ -22,5 +22,11 @@ public class PortalConsent {
     /*
     TODO keep it?
     private List<AcceptancesHistory> history; //storico accettazioni
-     */
+    */
+
+    public PortalConsent(String userId, String versionId) {
+        this.userId = userId;
+        this.acceptanceDate = LocalDateTime.now();
+        this.versionId = versionId;
+    }
 }

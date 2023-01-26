@@ -2,7 +2,6 @@ package it.gov.pagopa.connector.onetrust;
 
 import it.gov.pagopa.dto.onetrust.PrivacyNoticesDTO;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -11,9 +10,13 @@ import java.time.format.DateTimeFormatter;
 @Service
 @Slf4j
 public class OneTrustRestServiceImpl implements OneTrustRestService {
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-ddTHH:mm:ss");
 
-    @Autowired
-    OneTrustRestClient oneTrustClient;
+    private final OneTrustRestClient oneTrustClient;
+
+    public OneTrustRestServiceImpl(OneTrustRestClient oneTrustClient) {
+        this.oneTrustClient = oneTrustClient;
+    }
 
     /**
      * Calls OneTrust privacy notices' service passing {@link LocalDateTime#now()} as parameter
@@ -28,8 +31,7 @@ public class OneTrustRestServiceImpl implements OneTrustRestService {
      */
     @Override
     public PrivacyNoticesDTO getPrivacyNotices(String id, LocalDateTime date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-ddTHH:mm:ss");
-        String dateFormatted = date.format(formatter);
+        String dateFormatted = date.format(DATE_FORMATTER);
 
         log.info("[CONSENTS] Calling OneTrust to get privacy notices with id {}", id);
         return oneTrustClient.getPrivacyNotices(id, dateFormatted);

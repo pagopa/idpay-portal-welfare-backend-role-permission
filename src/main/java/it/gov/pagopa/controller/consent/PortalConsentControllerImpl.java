@@ -1,38 +1,31 @@
 package it.gov.pagopa.controller.consent;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import it.gov.pagopa.dto.PortalConsentDTO;
 import it.gov.pagopa.service.PortalConsentService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Optional;
 
 
 @RestController
 public class PortalConsentControllerImpl implements PortalConsentController {
 
-    @Autowired
-    PortalConsentService portalConsentService;
+    private final PortalConsentService portalConsentService;
 
-    @Value("${portal.welfare.tos.privacy}")
-    private String linkPrivacy;
-
-    @Value("${portal.welfare.tos.tc}")
-    private String linkTc;
-
-    @Override
-    public ResponseEntity<PortalConsentDTO> getPortalConsent(String userId) throws JsonProcessingException {
-        PortalConsentDTO consentDTO = portalConsentService.get(userId);
-
-        return consentDTO != null
-                ? ResponseEntity.ok(consentDTO)
-                : ResponseEntity.notFound().build();
+    public PortalConsentControllerImpl(PortalConsentService portalConsentService) {
+        this.portalConsentService = portalConsentService;
     }
 
     @Override
-    public ResponseEntity<Void> savePortalConsent(String userId, PortalConsentDTO consent) throws JsonProcessingException{
+    public ResponseEntity<PortalConsentDTO> getPortalConsent(String userId) {
+        Optional<PortalConsentDTO> consentOptional = portalConsentService.get(userId);
+
+        return consentOptional.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.ok().build());
+    }
+
+    @Override
+    public void savePortalConsent(String userId, PortalConsentDTO consent) {
         portalConsentService.save(userId, consent);
-        return ResponseEntity.ok().build();
     }
 }

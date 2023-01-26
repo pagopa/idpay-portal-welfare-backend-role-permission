@@ -4,59 +4,76 @@ import it.gov.pagopa.connector.onetrust.OneTrustRestService;
 import it.gov.pagopa.dto.PortalConsentDTO;
 import it.gov.pagopa.dto.mapper.PrivacyNotices2PortalConsentDTOMapper;
 import it.gov.pagopa.dto.onetrust.PrivacyNoticesDTO;
+import it.gov.pagopa.exception.ConsentException;
 import it.gov.pagopa.model.PortalConsent;
 import it.gov.pagopa.repository.PortalConsentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpStatusCodeException;
 
 import java.time.LocalDateTime;
+import java.util.ConcurrentModificationException;
 import java.util.Optional;
 
 @Service
-public class PortalConsentServiceImpl implements PortalConsentService{
+@Slf4j
+public class PortalConsentServiceImpl implements PortalConsentService {
 
-    @Autowired
-    PortalConsentRepository portalConsentRepository;
+    private final PortalConsentRepository portalConsentRepository;
 
-    @Autowired
-    OneTrustRestService oneTrustRestService;
+    private final OneTrustRestService oneTrustRestService;
 
-    @Autowired
-    PrivacyNotices2PortalConsentDTOMapper privacyNotices2PortalConsentDTOMapper;
+    private final PrivacyNotices2PortalConsentDTOMapper privacyNotices2PortalConsentDTOMapper;
 
-    @Value("${onetrust.privacy-notices.tos.id}")
-    private String tosId;
+    private final String tosId;
+
+    public PortalConsentServiceImpl(
+            PortalConsentRepository portalConsentRepository,
+            OneTrustRestService oneTrustRestService,
+            PrivacyNotices2PortalConsentDTOMapper privacyNotices2PortalConsentDTOMapper,
+            @Value("${onetrust.privacy-notices.tos.id}") String tosId) {
+        this.portalConsentRepository = portalConsentRepository;
+        this.oneTrustRestService = oneTrustRestService;
+        this.privacyNotices2PortalConsentDTOMapper = privacyNotices2PortalConsentDTOMapper;
+        this.tosId = tosId;
+    }
 
     @Override
-    public PortalConsentDTO get(String userId) {
+    public Optional<PortalConsentDTO> get(String userId) {
 
-        Optional<PortalConsent> optional = portalConsentRepository.findById(userId);
-        if (optional.isPresent()) {
-            PortalConsent consentEntity = optional.get();
-            PrivacyNoticesDTO privacyNotices = oneTrustRestService.getPrivacyNotices(tosId);
+        log.info("[CONSENTS] Fetching possible previous consent by user {}", userId);
+        PortalConsent consent = portalConsentRepository.findById(userId)
+                .orElseThrow(() -> new ConsentException(
+                        HttpStatus.NOT_FOUND.value(),
+                        "Previously accepted consent by user %s does not exist".formatted(userId),
+                        HttpStatus.NOT_FOUND)
+                );
 
-            return consentEntity.getVersionId().equals(privacyNotices.getVersion().getId())
-                    ? new PortalConsentDTO()
-                    : privacyNotices2PortalConsentDTOMapper.apply(privacyNotices);
-        } else {
-            return null;
-        }
+        PrivacyNoticesDTO privacyNotices = oneTrustRestService.getPrivacyNotices(tosId);
+
+        return consent.getVersionId().equals(privacyNotices.getVersion().getId())
+                    ? Optional.empty()
+                    : Optional.of(privacyNotices2PortalConsentDTOMapper.apply(privacyNotices));
     }
 
     @Override
     public void save(String userId, PortalConsentDTO consentDTO) {
-        LocalDateTime now = LocalDateTime.now();
-        PrivacyNoticesDTO privacyNotices = oneTrustRestService.getPrivacyNotices(tosId, now);
+        PrivacyNoticesDTO privacyNotices = oneTrustRestService.getPrivacyNotices(tosId);
 
         if (!consentDTO.getVersionId().equals(privacyNotices.getVersion().getId())) {
             // TODO error
         } else {
             PortalConsent consent = new PortalConsent(
                     userId,
-                    now,
                     consentDTO.getVersionId()
             );
+
+            log.info("[CONSENTS] Saving privacy notice with version {} accepted by user {}",
+                    consent.getVersionId(),
+                    consent.getUserId());
             portalConsentRepository.save(consent);
         }
     }
