@@ -6,8 +6,6 @@ import it.gov.pagopa.service.PortalConsentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -26,13 +24,18 @@ public class PortalConsentControllerImpl implements PortalConsentController {
 
     @Override
     //@ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<PortalConsentDTO> getPortalConsent(@RequestHeader(value = "Content-Language") String contentLanguage) throws JsonProcessingException {
-        return null;
+    public ResponseEntity<PortalConsentDTO> getPortalConsent(String userId) throws JsonProcessingException {
+        PortalConsentDTO consentDTO = portalConsentService.get(userId);
+
+        return consentDTO != null
+                ? ResponseEntity.ok(consentDTO)
+                : ResponseEntity.notFound().build();
     }
 
     @Override
     //@ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<PortalConsentDTO> savePortalConsent(@RequestBody PortalConsentDTO consent) throws JsonProcessingException{
-        portalConsentService.save(consent);
+    public ResponseEntity<Void> savePortalConsent(String userId, PortalConsentDTO consent) throws JsonProcessingException{
+        portalConsentService.save(userId, consent);
+        return ResponseEntity.ok().build();
     }
 }

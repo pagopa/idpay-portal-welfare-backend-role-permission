@@ -1,18 +1,21 @@
 package it.gov.pagopa.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class PortalConsentDTO {
-    @JsonProperty(value = "userId")
-    private String userId;
 
     @JsonProperty(value = "acceptDate")
-    private LocalDate acceptDate;
+    private LocalDateTime acceptDate;
 
     @JsonProperty(value = "versionId")
     private String versionId;

@@ -1,6 +1,5 @@
 package it.gov.pagopa.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,8 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.LocalDate;
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -19,7 +17,7 @@ import java.util.List;
 public class PortalConsent {
     @Id
     private String userId;
-    private LocalDate acceptDate;
+    private LocalDateTime acceptDate;
     private String versionId;
     /*
     TODO keep it?

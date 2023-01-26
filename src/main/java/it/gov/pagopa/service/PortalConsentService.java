@@ -6,5 +6,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface PortalConsentService {
 
-    void save(PortalConsentDTO consent);
+    PortalConsentDTO get(String userId);
+
+    void save(String userId, PortalConsentDTO consent);
 }

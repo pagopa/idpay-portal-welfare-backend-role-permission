@@ -5,11 +5,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import it.gov.pagopa.dto.ErrorDTO;
 import it.gov.pagopa.dto.PortalConsentDTO;
-import it.gov.pagopa.dto.UserPermissionDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -44,12 +42,11 @@ public interface PortalConsentController {
             }
 
     )
-    @RequestMapping(
-            method = RequestMethod.GET,
+    @GetMapping(
             value = "/consent",
             produces = { "application/json" }
     )
-    ResponseEntity<PortalConsentDTO> getPortalConsent(@RequestHeader(value = "Content-Language") String contentLanguage) throws JsonProcessingException;
+    ResponseEntity<PortalConsentDTO> getPortalConsent(@RequestParam String userId) throws JsonProcessingException;
 
     @Operation(
             operationId = "savePortalConsent",
@@ -77,5 +74,5 @@ public interface PortalConsentController {
             value = "/consent",
             consumes = {"application/json"}
     )
-     ResponseEntity<PortalConsentDTO> savePortalConsent(@RequestBody PortalConsentDTO consent) throws JsonProcessingException;
+     ResponseEntity<Void> savePortalConsent(@RequestParam String userId, @RequestBody PortalConsentDTO consent) throws JsonProcessingException;
 }
