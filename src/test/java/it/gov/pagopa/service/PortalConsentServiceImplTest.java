@@ -5,10 +5,9 @@ import it.gov.pagopa.dto.PortalConsentDTO;
 import it.gov.pagopa.dto.mapper.PrivacyNotices2PortalConsentDTOMapper;
 import it.gov.pagopa.dto.onetrust.PrivacyNoticesDTO;
 import it.gov.pagopa.dto.onetrust.PrivacyNoticesVersion;
-import it.gov.pagopa.exception.ConsentException;
+import it.gov.pagopa.exception.ClientException;
 import it.gov.pagopa.model.PortalConsent;
 import it.gov.pagopa.repository.PortalConsentRepository;
-import org.apache.tomcat.jni.Local;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,8 +20,6 @@ import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class PortalConsentServiceImplTest {
@@ -75,13 +72,13 @@ class PortalConsentServiceImplTest {
     @Test
     void testGetKo() {
         // Given
-        Mockito.when(consentRepositoryMock.findById(USER_ID)).thenThrow(new ConsentException(404, "TEST", HttpStatus.NOT_FOUND));
+        Mockito.when(consentRepositoryMock.findById(USER_ID)).thenThrow(new ClientException(404, "TEST", HttpStatus.NOT_FOUND));
 
         // When
         Executable executable = () -> portalConsentService.get(USER_ID);
 
         // Then
-        Assertions.assertThrows(ConsentException.class, executable);
+        Assertions.assertThrows(ClientException.class, executable);
     }
 
     @Test

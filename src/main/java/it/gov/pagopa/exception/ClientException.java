@@ -8,11 +8,15 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 @Getter
 @Setter
-public class ConsentException extends RuntimeException {
+public class ClientException extends RuntimeException {
 
     private final int code;
 
     private final String message;
 
     private final HttpStatus httpStatus;
+
+    public ClientException(HttpStatus httpStatus) {
+        this(httpStatus.value(), "Something went wrong", httpStatus);
+    }
 }

@@ -10,12 +10,15 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @Slf4j
 public class RestExceptionHandler {
 
-    @ExceptionHandler(ConsentException.class)
-    public ResponseEntity<ErrorDTO> handleConsentException(ConsentException ex) {
+    @ExceptionHandler(ClientException.class)
+    public ResponseEntity<ErrorDTO> handleException(ClientException ex) {
         log.error(ex.getMessage());
-        return new ResponseEntity<>(new ErrorDTO(
-                ex.getCode(),
-                ex.getMessage()),
-                ex.getHttpStatus());
+        return new ResponseEntity<>(
+                new ErrorDTO(
+                        ex.getCode(),
+                        ex.getMessage()
+                ),
+                ex.getHttpStatus()
+        );
     }
 }

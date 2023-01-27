@@ -4,18 +4,14 @@ import it.gov.pagopa.connector.onetrust.OneTrustRestService;
 import it.gov.pagopa.dto.PortalConsentDTO;
 import it.gov.pagopa.dto.mapper.PrivacyNotices2PortalConsentDTOMapper;
 import it.gov.pagopa.dto.onetrust.PrivacyNoticesDTO;
-import it.gov.pagopa.exception.ConsentException;
+import it.gov.pagopa.exception.ClientException;
 import it.gov.pagopa.model.PortalConsent;
 import it.gov.pagopa.repository.PortalConsentRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.HttpStatusCodeException;
 
-import java.time.LocalDateTime;
-import java.util.ConcurrentModificationException;
 import java.util.Optional;
 
 @Service
@@ -46,7 +42,7 @@ public class PortalConsentServiceImpl implements PortalConsentService {
 
         log.info("[CONSENTS] Fetching possible previous consent by user {}", userId);
         PortalConsent consent = portalConsentRepository.findById(userId)
-                .orElseThrow(() -> new ConsentException(
+                .orElseThrow(() -> new ClientException(
                         HttpStatus.NOT_FOUND.value(),
                         "Previously accepted consent by user %s does not exist".formatted(userId),
                         HttpStatus.NOT_FOUND)
