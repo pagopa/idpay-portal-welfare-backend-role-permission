@@ -7,7 +7,6 @@ import it.gov.pagopa.model.Permission;
 import it.gov.pagopa.model.RolePermission;
 import it.gov.pagopa.repository.RolePermissionRepository;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +16,11 @@ import java.util.List;
 @Service
 public class RolePermissionServiceImpl implements RolePermissionService {
 
-    @Autowired
-    RolePermissionRepository rolePermissionRepository;
+    private final RolePermissionRepository rolePermissionRepository;
+
+    public RolePermissionServiceImpl(RolePermissionRepository rolePermissionRepository) {
+        this.rolePermissionRepository = rolePermissionRepository;
+    }
 
     @Override
     public UserPermissionDTO getUserPermission(String roleType) {

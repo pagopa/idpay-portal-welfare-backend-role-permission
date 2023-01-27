@@ -27,8 +27,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-@WebMvcTest(value = {
-    RolePermissionService.class})
+@WebMvcTest(value = {RolePermissionService.class})
 @Slf4j
 class RolePermissionServiceImplTest {
 

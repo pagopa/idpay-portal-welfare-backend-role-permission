@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 @Service
 @Slf4j
 public class OneTrustRestServiceImpl implements OneTrustRestService {
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-ddTHH:mm:ss");
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
     private final OneTrustRestClient oneTrustClient;
 
