@@ -12,7 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @Validated
-@RequestMapping("/idpay}")
+@RequestMapping("/idpay")
 public interface PortalConsentController {
     @Operation(
             operationId = "getPortalConsent",
@@ -41,7 +41,7 @@ public interface PortalConsentController {
             value = "/consent",
             produces = { "application/json" }
     )
-    ResponseEntity<PortalConsentDTO> getPortalConsent(@RequestParam(value = "uid") String userId) throws JsonProcessingException;
+    ResponseEntity<PortalConsentDTO> getPortalConsent(@RequestParam(value = "uid") String uid) throws JsonProcessingException;
 
     @Operation(
             operationId = "savePortalConsent",
@@ -66,5 +66,5 @@ public interface PortalConsentController {
             value = "/consent",
             consumes = {"application/json"}
     )
-    void savePortalConsent(@RequestParam(value = "uid") String userId, @RequestBody PortalConsentDTO consent) throws JsonProcessingException;
+    void savePortalConsent(@RequestParam(value = "uid") String uid, @RequestBody PortalConsentDTO consent) throws JsonProcessingException;
 }

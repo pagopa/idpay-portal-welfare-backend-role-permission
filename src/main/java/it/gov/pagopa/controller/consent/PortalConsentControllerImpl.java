@@ -18,14 +18,14 @@ public class PortalConsentControllerImpl implements PortalConsentController {
     }
 
     @Override
-    public ResponseEntity<PortalConsentDTO> getPortalConsent(String userId) {
-        Optional<PortalConsentDTO> consentOptional = portalConsentService.get(userId);
+    public ResponseEntity<PortalConsentDTO> getPortalConsent(String uid) {
+        Optional<PortalConsentDTO> consentOptional = portalConsentService.get(uid);
 
         return consentOptional.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.ok().build());
     }
 
     @Override
-    public void savePortalConsent(String userId, PortalConsentDTO consent) {
-        portalConsentService.save(userId, consent);
+    public void savePortalConsent(String uid, PortalConsentDTO consent) {
+        portalConsentService.save(uid, consent);
     }
 }
