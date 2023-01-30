@@ -48,9 +48,8 @@ microservice-chart:
     name: "cstar-d-idpay-kv"
     tenantId: "7788edaf-0346-4068-9d79-c868aed15b3d"
 
-  envConfig:
+#  envConfig:
 #    ONETRUST_PRIVACYNOTICES_URL: TODO
-
 
   # nodeSelector: {}
 
