@@ -20,8 +20,7 @@ import java.util.Optional;
 class PortalConsentControllerImplTest {
 
     //region String constants
-    private static final String BASE_URL = "/idpay/consent";
-    private static final String UID_PARAM_NAME = "uid";
+    private static final String BASE_URL = "/idpay/consent/{userId}";
     private static final String USER_ID = "USER_ID";
     private static final String VERSION_ID = "VERSION_ID";
     //endregion
@@ -36,8 +35,7 @@ class PortalConsentControllerImplTest {
         Mockito.when(service.get(USER_ID)).thenReturn(Optional.empty());
 
         MvcResult result = mvc.perform(MockMvcRequestBuilders
-                        .get(BASE_URL)
-                        .param(UID_PARAM_NAME, USER_ID)
+                        .get(BASE_URL, USER_ID)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().is2xxSuccessful())
@@ -51,8 +49,7 @@ class PortalConsentControllerImplTest {
         Mockito.when(service.get(USER_ID)).thenReturn(Optional.of(consent));
 
         MvcResult result = mvc.perform(MockMvcRequestBuilders
-                        .get(BASE_URL)
-                        .param(UID_PARAM_NAME, USER_ID)
+                        .get(BASE_URL, USER_ID)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -67,8 +64,7 @@ class PortalConsentControllerImplTest {
         String consentString = "{\"versionId\":\"%s\"}".formatted(VERSION_ID);
 
         MvcResult result = mvc.perform(MockMvcRequestBuilders
-                        .post(BASE_URL)
-                        .param(UID_PARAM_NAME, USER_ID)
+                        .post(BASE_URL, USER_ID)
                         .content(consentString)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .accept(MediaType.APPLICATION_JSON))
