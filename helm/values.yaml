@@ -71,8 +71,6 @@ microservice-chart:
 
   envSecret:
     MONGODB_URI: mongodb-connection-string
-#    ONETRUST_TOS_ID: TODO
-
 
   # nodeSelector: {}
 

@@ -41,6 +41,8 @@ microservice-chart:
 
   envSecret:
     aks-api-url: cstar-d-weu-dev01-aks-apiserver-url
+#    ONETRUST_TOS_ID: TODO
+
 
   keyvault:
     name: "cstar-d-idpay-kv"
@@ -48,6 +50,7 @@ microservice-chart:
 
   envConfig:
 #    ONETRUST_PRIVACYNOTICES_URL: TODO
+
 
   # nodeSelector: {}
 
