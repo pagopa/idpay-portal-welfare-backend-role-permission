@@ -72,7 +72,7 @@ class PortalConsentServiceImplTest {
     @Test
     void testGetKo() {
         // Given
-        Mockito.when(consentRepositoryMock.findById(USER_ID)).thenThrow(new ClientException(404, "TEST", HttpStatus.NOT_FOUND));
+        Mockito.when(consentRepositoryMock.findById(USER_ID)).thenReturn(Optional.empty());
 
         // When
         Executable executable = () -> portalConsentService.get(USER_ID);
@@ -145,6 +145,30 @@ class PortalConsentServiceImplTest {
                 .build();
 
         Mockito.verify(consentRepositoryMock).save(expectedConsent);
+    }
+
+    @Test
+    void testSaveKo() {
+        // Given
+        PrivacyNoticesVersion version = PrivacyNoticesVersion.builder()
+                .id(VERSION_ID + "NEW")
+                .publishedDate(NOW.minusDays(1))
+                .build();
+        PrivacyNoticesDTO privacyNotices = PrivacyNoticesDTO.builder()
+                .id(TOS_ID)
+                .version(version)
+                .build();
+        Mockito.when(oneTrustRestServiceMock.getPrivacyNotices(TOS_ID)).thenReturn(privacyNotices);
+
+
+        PortalConsentDTO input = new PortalConsentDTO(VERSION_ID);
+
+        // When
+        Executable executable = () -> portalConsentService.save(USER_ID, input);
+
+        // Then
+        Assertions.assertThrows(ClientException.class, executable);
+        Mockito.verify(consentRepositoryMock, Mockito.never()).save(Mockito.any());
     }
     //endregion
 

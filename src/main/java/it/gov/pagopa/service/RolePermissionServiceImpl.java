@@ -35,7 +35,6 @@ public class RolePermissionServiceImpl implements RolePermissionService {
         UserPermissionDTO userPermissionDTO = new UserPermissionDTO();
         userPermissionDTO.setRole(rolePermission.getRole());
         List<PermissionDTO> permissionDTOList = new ArrayList<>();
-//            BeanUtils.copyProperties(role.getPermissions(), permissionDTOList, "description");
         if(rolePermission.getPermissions() != null) {
             for (Permission source : rolePermission.getPermissions()) {
                 PermissionDTO permissionDTO = new PermissionDTO();
@@ -45,13 +44,6 @@ public class RolePermissionServiceImpl implements RolePermissionService {
         }
         userPermissionDTO.setPermissions(permissionDTOList);
         return userPermissionDTO;
-    }
-
-    public void saveRole() {
-        RolePermission rolePermission = new RolePermission();
-        rolePermission.setRole("test");
-        rolePermission.setDescription("testDesc");
-        rolePermissionRepository.save(rolePermission);
     }
 
 }

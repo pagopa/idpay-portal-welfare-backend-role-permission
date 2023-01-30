@@ -60,7 +60,10 @@ public class PortalConsentServiceImpl implements PortalConsentService {
         PrivacyNoticesDTO privacyNotices = oneTrustRestService.getPrivacyNotices(tosId);
 
         if (!consentDTO.getVersionId().equals(privacyNotices.getVersion().getId())) {
-            // TODO error
+            throw new ClientException(
+                    HttpStatus.NOT_FOUND.value(),
+                    "",
+                    HttpStatus.NOT_FOUND);
         } else {
             PortalConsent consent = new PortalConsent(
                     userId,
