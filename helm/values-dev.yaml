@@ -48,8 +48,8 @@ microservice-chart:
     name: "cstar-d-idpay-kv"
     tenantId: "7788edaf-0346-4068-9d79-c868aed15b3d"
 
-#  envConfig:
-#    ONETRUST_PRIVACYNOTICES_URL: TODO
+  envConfig:
+    ONETRUST_PRIVACYNOTICES_URL: "https://api-io.dev.cstar.pagopa.it/idpay/mock/api/privacynotice/v2"
 
   # nodeSelector: {}
 

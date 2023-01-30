@@ -38,10 +38,10 @@ public interface PortalConsentController {
 
     )
     @GetMapping(
-            value = "/consent",
+            value = "/consent/{userId}",
             produces = { "application/json" }
     )
-    ResponseEntity<PortalConsentDTO> getPortalConsent(@RequestParam(value = "uid") String uid) throws JsonProcessingException;
+    ResponseEntity<PortalConsentDTO> getPortalConsent(@PathVariable(value = "userId") String userId) throws JsonProcessingException;
 
     @Operation(
             operationId = "savePortalConsent",
@@ -63,8 +63,8 @@ public interface PortalConsentController {
             }
     )
     @PostMapping(
-            value = "/consent",
+            value = "/consent/{userId}",
             consumes = {"application/json"}
     )
-    void savePortalConsent(@RequestParam(value = "uid") String uid, @RequestBody PortalConsentDTO consent) throws JsonProcessingException;
+    void savePortalConsent(@PathVariable(value = "userId") String userId, @RequestBody PortalConsentDTO consent) throws JsonProcessingException;
 }

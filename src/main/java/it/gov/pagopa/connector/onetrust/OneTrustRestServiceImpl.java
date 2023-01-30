@@ -33,7 +33,7 @@ public class OneTrustRestServiceImpl implements OneTrustRestService {
     public PrivacyNoticesDTO getPrivacyNotices(String id, LocalDateTime date) {
         String dateFormatted = date.format(DATE_FORMATTER);
 
-        log.info("[CONSENTS] Calling OneTrust to get privacy notices with id {}", id);
+        log.info("[CONSENTS] Calling OneTrust to get current active version of privacy notices");
         return oneTrustClient.getPrivacyNotices(id, dateFormatted);
     }
 }
