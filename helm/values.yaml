@@ -72,7 +72,6 @@ microservice-chart:
   envSecret:
     MONGODB_URI: mongodb-connection-string
 
-
   # nodeSelector: {}
 
   # tolerations: []
