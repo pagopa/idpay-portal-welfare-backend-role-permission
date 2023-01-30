@@ -29,8 +29,7 @@ class RestExceptionHandlerTest  {
         Mockito.when(consentController.getPortalConsent("ClientException")).thenThrow(new ClientException(HttpStatus.NOT_FOUND));
 
         mvc.perform(MockMvcRequestBuilders
-                .get("/idpay/consent")
-                .param("uid", "ClientException")
+                .get("/idpay/consent/{userId}", "ClientException")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isNotFound())
                 .andExpect(r ->
