@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: "@project.parent.artifactId@"
+    version: "@project.version@"
+  data:
+    mongodb:
+      database: ${MONGODB_DBNAME}
+      uri: ${MONGODB_URI}
+#  profiles:
+#    include: 
+#    - swaggerEN
+
+#logging
+logging:
+  level:
+    org.springframework.data: ${LOG_LEVEL_SPRING_DATA:debug}
+
+app:
+  onetrust:
+    privacy-notices:
+      client.url: ${ONETRUST_PRIVACYNOTICES_URL:https://api-io.dev.cstar.pagopa.it/idpay/mock/api/privacynotice/v2}
+      tos.id: ${ONETRUST_TOS_ID:123}
+
+#Management Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info, health

@@ -30,7 +30,7 @@ public class PortalConsentServiceImpl implements PortalConsentService {
             PortalConsentRepository portalConsentRepository,
             OneTrustRestService oneTrustRestService,
             PrivacyNotices2PortalConsentDTOMapper privacyNotices2PortalConsentDTOMapper,
-            @Value("${onetrust.privacy-notices.tos.id}") String tosId) {
+            @Value("${app.onetrust.privacy-notices.tos.id}") String tosId) {
         this.portalConsentRepository = portalConsentRepository;
         this.oneTrustRestService = oneTrustRestService;
         this.privacyNotices2PortalConsentDTOMapper = privacyNotices2PortalConsentDTOMapper;
@@ -40,11 +40,11 @@ public class PortalConsentServiceImpl implements PortalConsentService {
     @Override
     public Optional<PortalConsentDTO> get(String userId) {
 
-        log.info("[CONSENTS] Fetching possible previous consent by user {}", userId);
+        log.info("[CONSENTS] Fetching possible previously accepted consent");
         PortalConsent consent = portalConsentRepository.findById(userId)
                 .orElseThrow(() -> new ClientException(
                         HttpStatus.NOT_FOUND.value(),
-                        "Previously accepted consent by user %s does not exist".formatted(userId),
+                        "Previously accepted consent does not exist",
                         HttpStatus.NOT_FOUND)
                 );
 
@@ -70,9 +70,7 @@ public class PortalConsentServiceImpl implements PortalConsentService {
                     consentDTO.getVersionId()
             );
 
-            log.info("[CONSENTS] Saving privacy notice with version {} accepted by user {}",
-                    consent.getVersionId(),
-                    consent.getUserId());
+            log.info("[CONSENTS] Saving accepted privacy notice");
             portalConsentRepository.save(consent);
         }
     }
