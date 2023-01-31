@@ -41,18 +41,18 @@ public class PortalConsentServiceImpl implements PortalConsentService {
     public Optional<PortalConsentDTO> get(String userId) {
 
         log.info("[CONSENTS] Fetching possible previously accepted consent");
-        PortalConsent consent = portalConsentRepository.findById(userId)
-                .orElseThrow(() -> new ClientException(
-                        HttpStatus.NOT_FOUND.value(),
-                        "Previously accepted consent does not exist",
-                        HttpStatus.NOT_FOUND)
-                );
+        Optional<PortalConsent> optional = portalConsentRepository.findById(userId);
 
         PrivacyNoticesDTO privacyNotices = oneTrustRestService.getPrivacyNotices(tosId);
 
-        return consent.getVersionId().equals(privacyNotices.getVersion().getId())
+        if (optional.isPresent()) {
+            PortalConsent consent = optional.get();
+            return consent.getVersionId().equals(privacyNotices.getVersion().getId())
                     ? Optional.empty()
-                    : Optional.of(privacyNotices2PortalConsentDTOMapper.apply(privacyNotices));
+                    : Optional.of(privacyNotices2PortalConsentDTOMapper.apply(privacyNotices, false));
+        } else {
+            return Optional.of(privacyNotices2PortalConsentDTOMapper.apply(privacyNotices, true));
+        }
     }
 
     @Override
@@ -61,9 +61,9 @@ public class PortalConsentServiceImpl implements PortalConsentService {
 
         if (!consentDTO.getVersionId().equals(privacyNotices.getVersion().getId())) {
             throw new ClientException(
-                    HttpStatus.NOT_FOUND.value(),
-                    "",
-                    HttpStatus.NOT_FOUND);
+                    HttpStatus.BAD_REQUEST.value(),
+                    "[CONSENTS] Received version id does not match the active one",
+                    HttpStatus.BAD_REQUEST);
         } else {
             PortalConsent consent = new PortalConsent(
                     userId,
