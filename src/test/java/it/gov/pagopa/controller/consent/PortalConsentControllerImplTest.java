@@ -43,7 +43,7 @@ class PortalConsentControllerImplTest {
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().is2xxSuccessful())
-                .andExpect(MockMvcResultMatchers.content().string("{\"versionId\":null,\"firstAcceptance\":null}"))
+                .andExpect(MockMvcResultMatchers.content().string("{}"))
                 .andReturn();
     }
 
