@@ -27,6 +27,8 @@ class PortalConsentServiceImplTest {
     private static final String TOS_ID = "TOS_ID";
     private static final String VERSION_ID = "VERSION_ID";
 
+    private static final PortalConsentDTO EMPTY_CONSENT_DTO = new PortalConsentDTO();
+
     @Mock
     private PortalConsentRepository consentRepositoryMock;
     @Mock
@@ -62,10 +64,11 @@ class PortalConsentServiceImplTest {
         Mockito.when(oneTrustRestServiceMock.getPrivacyNotices(TOS_ID)).thenReturn(privacyNotices);
 
         // When
-        Optional<PortalConsentDTO> result = portalConsentService.get(USER_ID);
+        PortalConsentDTO result = portalConsentService.get(USER_ID);
 
         // Then
-        Assertions.assertTrue(result.isEmpty());
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(EMPTY_CONSENT_DTO, result);
     }
 
     @Test
@@ -84,12 +87,12 @@ class PortalConsentServiceImplTest {
         Mockito.when(oneTrustRestServiceMock.getPrivacyNotices(TOS_ID)).thenReturn(privacyNotices);
 
         // When
-        Optional<PortalConsentDTO> result = portalConsentService.get(USER_ID);
+        PortalConsentDTO result = portalConsentService.get(USER_ID);
 
         // Then
-        Assertions.assertTrue(result.isPresent());
-        Assertions.assertTrue(result.get().isFirstAcceptance());
-        Assertions.assertEquals(VERSION_ID, result.get().getVersionId());
+        Assertions.assertNotNull(result);
+        Assertions.assertTrue(result.getFirstAcceptance());
+        Assertions.assertEquals(VERSION_ID, result.getVersionId());
     }
 
     @Test
@@ -113,12 +116,12 @@ class PortalConsentServiceImplTest {
         Mockito.when(oneTrustRestServiceMock.getPrivacyNotices(TOS_ID)).thenReturn(privacyNotices);
 
         // When
-        Optional<PortalConsentDTO> result = portalConsentService.get(USER_ID);
+        PortalConsentDTO result = portalConsentService.get(USER_ID);
 
         // Then
         PortalConsentDTO expected = new PortalConsentDTO("VERSION_ID_NEW", false);
-        Assertions.assertTrue(result.isPresent());
-        Assertions.assertEquals(expected, result.get());
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(expected, result);
     }
     //endregion
 

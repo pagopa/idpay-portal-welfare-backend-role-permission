@@ -7,7 +7,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import it.gov.pagopa.dto.ErrorDTO;
 import it.gov.pagopa.dto.PortalConsentDTO;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,7 +40,7 @@ public interface PortalConsentController {
             value = "/consent",
             produces = { "application/json" }
     )
-    ResponseEntity<PortalConsentDTO> getPortalConsent(@RequestParam(value = "userId") String userId) throws JsonProcessingException;
+    PortalConsentDTO getPortalConsent(@RequestParam(value = "userId") String userId) throws JsonProcessingException;
 
     @Operation(
             operationId = "savePortalConsent",
