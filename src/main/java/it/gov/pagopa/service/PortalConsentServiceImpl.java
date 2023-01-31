@@ -26,6 +26,8 @@ public class PortalConsentServiceImpl implements PortalConsentService {
 
     private final String tosId;
 
+    private static final PortalConsentDTO EMPTY_PORTAL_CONSENT_DTO = new PortalConsentDTO();
+
     public PortalConsentServiceImpl(
             PortalConsentRepository portalConsentRepository,
             OneTrustRestService oneTrustRestService,
@@ -38,7 +40,7 @@ public class PortalConsentServiceImpl implements PortalConsentService {
     }
 
     @Override
-    public Optional<PortalConsentDTO> get(String userId) {
+    public PortalConsentDTO get(String userId) {
 
         log.info("[CONSENTS] Fetching possible previously accepted consent");
         Optional<PortalConsent> optional = portalConsentRepository.findById(userId);
@@ -48,10 +50,10 @@ public class PortalConsentServiceImpl implements PortalConsentService {
         if (optional.isPresent()) {
             PortalConsent consent = optional.get();
             return consent.getVersionId().equals(privacyNotices.getVersion().getId())
-                    ? Optional.empty()
-                    : Optional.of(privacyNotices2PortalConsentDTOMapper.apply(privacyNotices, false));
+                    ? EMPTY_PORTAL_CONSENT_DTO
+                    : privacyNotices2PortalConsentDTOMapper.apply(privacyNotices, false);
         } else {
-            return Optional.of(privacyNotices2PortalConsentDTOMapper.apply(privacyNotices, true));
+            return privacyNotices2PortalConsentDTOMapper.apply(privacyNotices, true);
         }
     }
 

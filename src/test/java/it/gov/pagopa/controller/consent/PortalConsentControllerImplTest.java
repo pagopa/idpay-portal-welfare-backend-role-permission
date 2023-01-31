@@ -26,6 +26,8 @@ class PortalConsentControllerImplTest {
     private static final String VERSION_ID = "VERSION_ID";
     //endregion
 
+    private static final PortalConsentDTO EMPTY_CONSENT_DTO = new PortalConsentDTO();
+
     @MockBean
     private PortalConsentService service;
     @Autowired
@@ -33,7 +35,7 @@ class PortalConsentControllerImplTest {
 
     @Test
     void testGetSuccess() throws Exception {
-        Mockito.when(service.get(USER_ID)).thenReturn(Optional.empty());
+        Mockito.when(service.get(USER_ID)).thenReturn(EMPTY_CONSENT_DTO);
 
         MvcResult result = mvc.perform(MockMvcRequestBuilders
                         .get(BASE_URL)
@@ -41,14 +43,14 @@ class PortalConsentControllerImplTest {
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().is2xxSuccessful())
-                .andExpect(MockMvcResultMatchers.content().string(""))
+                .andExpect(MockMvcResultMatchers.content().string("{\"versionId\":null,\"firstAcceptance\":null}"))
                 .andReturn();
     }
 
     @Test
     void testGetOkFirstAcceptance() throws Exception {
         PortalConsentDTO consent = new PortalConsentDTO(VERSION_ID, true);
-        Mockito.when(service.get(USER_ID)).thenReturn(Optional.of(consent));
+        Mockito.when(service.get(USER_ID)).thenReturn(consent);
 
         MvcResult result = mvc.perform(MockMvcRequestBuilders
                         .get(BASE_URL)
@@ -65,7 +67,7 @@ class PortalConsentControllerImplTest {
     @Test
     void testGetOkNewVersion() throws Exception {
         PortalConsentDTO consent = new PortalConsentDTO(VERSION_ID, false);
-        Mockito.when(service.get(USER_ID)).thenReturn(Optional.of(consent));
+        Mockito.when(service.get(USER_ID)).thenReturn(consent);
 
         MvcResult result = mvc.perform(MockMvcRequestBuilders
                         .get(BASE_URL)

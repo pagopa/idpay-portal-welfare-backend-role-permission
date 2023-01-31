@@ -5,8 +5,6 @@ import it.gov.pagopa.service.PortalConsentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Optional;
-
 
 @RestController
 public class PortalConsentControllerImpl implements PortalConsentController {
@@ -19,9 +17,9 @@ public class PortalConsentControllerImpl implements PortalConsentController {
 
     @Override
     public ResponseEntity<PortalConsentDTO> getPortalConsent(String userId) {
-        Optional<PortalConsentDTO> consentOptional = portalConsentService.get(userId);
-
-        return consentOptional.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.ok().build());
+        return ResponseEntity.ok(
+                portalConsentService.get(userId)
+        );
     }
 
     @Override
