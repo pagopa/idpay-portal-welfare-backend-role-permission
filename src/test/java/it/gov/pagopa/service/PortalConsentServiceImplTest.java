@@ -16,7 +16,6 @@ import org.junit.jupiter.api.function.Executable;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -70,15 +69,27 @@ class PortalConsentServiceImplTest {
     }
 
     @Test
-    void testGetKo() {
+    void testGetFirstAcceptance() {
         // Given
         Mockito.when(consentRepositoryMock.findById(USER_ID)).thenReturn(Optional.empty());
 
+        PrivacyNoticesVersion version = PrivacyNoticesVersion.builder()
+                .id(VERSION_ID)
+                .publishedDate(NOW.minusWeeks(1))
+                .build();
+        PrivacyNoticesDTO privacyNotices = PrivacyNoticesDTO.builder()
+                .id(TOS_ID)
+                .version(version)
+                .build();
+        Mockito.when(oneTrustRestServiceMock.getPrivacyNotices(TOS_ID)).thenReturn(privacyNotices);
+
         // When
-        Executable executable = () -> portalConsentService.get(USER_ID);
+        Optional<PortalConsentDTO> result = portalConsentService.get(USER_ID);
 
         // Then
-        Assertions.assertThrows(ClientException.class, executable);
+        Assertions.assertTrue(result.isPresent());
+        Assertions.assertTrue(result.get().isFirstAcceptance());
+        Assertions.assertEquals(VERSION_ID, result.get().getVersionId());
     }
 
     @Test
@@ -105,7 +116,7 @@ class PortalConsentServiceImplTest {
         Optional<PortalConsentDTO> result = portalConsentService.get(USER_ID);
 
         // Then
-        PortalConsentDTO expected = new PortalConsentDTO("VERSION_ID_NEW");
+        PortalConsentDTO expected = new PortalConsentDTO("VERSION_ID_NEW", false);
         Assertions.assertTrue(result.isPresent());
         Assertions.assertEquals(expected, result.get());
     }
@@ -132,7 +143,9 @@ class PortalConsentServiceImplTest {
             return argument;
         });
 
-        PortalConsentDTO input = new PortalConsentDTO(VERSION_ID);
+        PortalConsentDTO input = PortalConsentDTO.builder()
+                .versionId(VERSION_ID)
+                .build();
 
         // When
         portalConsentService.save(USER_ID, input);
@@ -161,7 +174,9 @@ class PortalConsentServiceImplTest {
         Mockito.when(oneTrustRestServiceMock.getPrivacyNotices(TOS_ID)).thenReturn(privacyNotices);
 
 
-        PortalConsentDTO input = new PortalConsentDTO(VERSION_ID);
+        PortalConsentDTO input = PortalConsentDTO.builder()
+                .versionId(VERSION_ID)
+                .build();
 
         // When
         Executable executable = () -> portalConsentService.save(USER_ID, input);

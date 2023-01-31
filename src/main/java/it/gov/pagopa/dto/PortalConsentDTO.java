@@ -15,9 +15,12 @@ public class PortalConsentDTO {
     @JsonProperty(value = "versionId")
     private String versionId;
 
+    @JsonProperty(value = "firstAcceptance")
+    private boolean firstAcceptance;
+
     /*
     TODO keep it?
     @JsonProperty("history")
     private List<AcceptancesHistoryDTO> history;
-     */
+    */
 }

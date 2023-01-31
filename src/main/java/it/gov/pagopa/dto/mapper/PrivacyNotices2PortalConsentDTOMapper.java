@@ -4,15 +4,13 @@ import it.gov.pagopa.dto.PortalConsentDTO;
 import it.gov.pagopa.dto.onetrust.PrivacyNoticesDTO;
 import org.springframework.stereotype.Service;
 
-import java.util.function.Function;
-
 @Service
-public class PrivacyNotices2PortalConsentDTOMapper implements Function<PrivacyNoticesDTO, PortalConsentDTO> {
+public class PrivacyNotices2PortalConsentDTOMapper {
 
-    @Override
-    public PortalConsentDTO apply(PrivacyNoticesDTO privacyNotices) {
+    public PortalConsentDTO apply(PrivacyNoticesDTO privacyNotices, boolean firstAcceptance) {
         return PortalConsentDTO.builder()
                 .versionId(privacyNotices.getVersion().getId())
+                .firstAcceptance(firstAcceptance)
                 .build();
     }
 }

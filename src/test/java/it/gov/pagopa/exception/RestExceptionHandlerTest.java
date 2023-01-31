@@ -16,7 +16,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @WebMvcTest(RestExceptionHandler.class)
 @AutoConfigureMockMvc
-class RestExceptionHandlerTest  {
+class RestExceptionHandlerTest {
 
     @MockBean
     private PortalConsentController consentController;
@@ -29,13 +29,14 @@ class RestExceptionHandlerTest  {
         Mockito.when(consentController.getPortalConsent("ClientException")).thenThrow(new ClientException(HttpStatus.NOT_FOUND));
 
         mvc.perform(MockMvcRequestBuilders
-                .get("/idpay/consent/{userId}", "ClientException")
-                .contentType(MediaType.APPLICATION_JSON))
+                        .get("/idpay/consent")
+                        .param("userId", "ClientException")
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isNotFound())
                 .andExpect(r ->
                         Assertions.assertEquals(
                                 "{\"code\":404,\"message\":\"Something went wrong\"}",
                                 r.getResponse().getContentAsString())
-                        );
+                );
     }
 }
