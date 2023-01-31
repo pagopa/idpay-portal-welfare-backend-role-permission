@@ -2,7 +2,6 @@ package it.gov.pagopa.controller.consent;
 
 import it.gov.pagopa.dto.PortalConsentDTO;
 import it.gov.pagopa.service.PortalConsentService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -16,10 +15,8 @@ public class PortalConsentControllerImpl implements PortalConsentController {
     }
 
     @Override
-    public ResponseEntity<PortalConsentDTO> getPortalConsent(String userId) {
-        return ResponseEntity.ok(
-                portalConsentService.get(userId)
-        );
+    public PortalConsentDTO getPortalConsent(String userId) {
+        return portalConsentService.get(userId);
     }
 
     @Override
