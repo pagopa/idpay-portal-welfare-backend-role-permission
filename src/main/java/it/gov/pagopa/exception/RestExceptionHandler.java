@@ -1,7 +1,6 @@
-package it.gov.pagopa.error;
+package it.gov.pagopa.exception;
 
 import it.gov.pagopa.dto.ErrorDTO;
-import it.gov.pagopa.exception.AuthorizationPermissionException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -11,16 +10,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-@ControllerAdvice
-//@Slf4j
-public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler {
-
-    // API
+@RestControllerAdvice
+@Slf4j
+public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     // 400
     @ExceptionHandler({ DataIntegrityViolationException.class })
@@ -44,15 +41,22 @@ public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler
 
 
     // 404
-//  @ExceptionHandler(value = { EntityNotFoundException.class, MyResourceNotFoundException.class })
-//  protected ResponseEntity<Object> handleNotFound(final RuntimeException ex, final WebRequest request) {
-//    final String bodyOfResponse = "This should be application specific";
-//    return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
-//  }
     @ExceptionHandler({AuthorizationPermissionException.class})
     public ResponseEntity<ErrorDTO> handleException(AuthorizationPermissionException ex) {
         return new ResponseEntity<>(new ErrorDTO(ex.getCode(), ex.getMessage()),
                 HttpStatus.valueOf(ex.getCode()));
+    }
+
+    @ExceptionHandler(ClientException.class)
+    public ResponseEntity<ErrorDTO> handleException(ClientException ex) {
+        log.error(ex.getMessage());
+        return new ResponseEntity<>(
+                new ErrorDTO(
+                        ex.getCode(),
+                        ex.getMessage()
+                ),
+                ex.getHttpStatus()
+        );
     }
 
     // 409
@@ -62,12 +66,9 @@ public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler
         return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.CONFLICT, request);
     }
 
-    // 412
-
     // 500
     @ExceptionHandler({ NullPointerException.class, IllegalArgumentException.class, IllegalStateException.class })
     public ResponseEntity<Object> handleInternal(final RuntimeException ex, final WebRequest request) {
-//        logger.error("500 Status Code", ex);
         final String bodyOfResponse = "Internal server Error";
         return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
     }

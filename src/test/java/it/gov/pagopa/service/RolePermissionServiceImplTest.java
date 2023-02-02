@@ -8,38 +8,28 @@ import it.gov.pagopa.model.Permission;
 import it.gov.pagopa.model.RolePermission;
 import it.gov.pagopa.repository.RolePermissionRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
-import org.springframework.test.web.servlet.MockMvc;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
-import static com.mongodb.assertions.Assertions.assertFalse;
-import static com.mongodb.assertions.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-@WebMvcTest(value = {
-    RolePermissionService.class})
+@WebMvcTest(value = {RolePermissionService.class})
 @Slf4j
-class RolePermisssionServiceTest {
+class RolePermissionServiceImplTest {
 
     @Autowired
     RolePermissionService rolePermissionService;
@@ -50,7 +40,7 @@ class RolePermisssionServiceTest {
 //    private static final Logger LOG = LoggerFactory.getLogger(RolePermisssionServiceTest.class);
 
     @Test
-    public void getUserPermissionReturnPermission() {
+    void getUserPermissionReturnPermission() {
         UserPermissionDTO userPermissionDTO = new UserPermissionDTO();
         List<PermissionDTO> permissionDTOList = new ArrayList<>();
         PermissionDTO permissionDTO = new PermissionDTO();

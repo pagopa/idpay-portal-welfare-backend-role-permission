@@ -7,19 +7,20 @@ import it.gov.pagopa.model.Permission;
 import it.gov.pagopa.model.RolePermission;
 import it.gov.pagopa.repository.RolePermissionRepository;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
-public class RolePermissionPermissionServiceImpl implements RolePermissionService {
+public class RolePermissionServiceImpl implements RolePermissionService {
 
-    @Autowired
-    RolePermissionRepository rolePermissionRepository;
+    private final RolePermissionRepository rolePermissionRepository;
+
+    public RolePermissionServiceImpl(RolePermissionRepository rolePermissionRepository) {
+        this.rolePermissionRepository = rolePermissionRepository;
+    }
 
     @Override
     public UserPermissionDTO getUserPermission(String roleType) {
@@ -34,7 +35,6 @@ public class RolePermissionPermissionServiceImpl implements RolePermissionServic
         UserPermissionDTO userPermissionDTO = new UserPermissionDTO();
         userPermissionDTO.setRole(rolePermission.getRole());
         List<PermissionDTO> permissionDTOList = new ArrayList<>();
-//            BeanUtils.copyProperties(role.getPermissions(), permissionDTOList, "description");
         if(rolePermission.getPermissions() != null) {
             for (Permission source : rolePermission.getPermissions()) {
                 PermissionDTO permissionDTO = new PermissionDTO();
@@ -44,13 +44,6 @@ public class RolePermissionPermissionServiceImpl implements RolePermissionServic
         }
         userPermissionDTO.setPermissions(permissionDTOList);
         return userPermissionDTO;
-    }
-
-    public void saveRole() {
-        RolePermission rolePermission = new RolePermission();
-        rolePermission.setRole("test");
-        rolePermission.setDescription("testDesc");
-        rolePermissionRepository.save(rolePermission);
     }
 
 }

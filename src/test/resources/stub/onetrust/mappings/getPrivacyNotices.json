@@ -1,0 +1,26 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPathPattern": "/privacynotices/TOSID_OK"
+  },
+  "response": {
+    "status": "200",
+    "jsonBody": {
+      "createdDate": "2023-01-30T17:11:52.479",
+      "id": "mock-id",
+      "lastPublishedDate": "2023-01-30T17:11:52.479",
+      "organizationId": "mock-organizationId",
+      "responsibleUserId": "mock-responsibleUserId",
+      "version": {
+        "id": "mock-version-id",
+        "name": "IdPay Privacy Policy",
+        "publishedDate": "2023-01-30T17:11:52.33",
+        "status": "ACTIVE",
+        "version": 1
+      }
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

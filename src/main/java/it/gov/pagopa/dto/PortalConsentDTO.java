@@ -1,26 +1,35 @@
 package it.gov.pagopa.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Builder;
+import lombok.Data;
 
-import java.time.LocalDate;
-import java.util.List;
-
+@Data
+@Builder
 public class PortalConsentDTO {
-    @JsonProperty("userId")
-    private String userId;
 
-    @JsonProperty("accepted")
-    private boolean accepted;
+    @JsonProperty(value = "versionId")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final String versionId;
 
-    @JsonProperty("changed")
-    private boolean changed;
+    @JsonProperty(value = "firstAcceptance")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final Boolean firstAcceptance;
 
-    @JsonProperty("acceptDate")
-    private LocalDate acceptDate;
+    public PortalConsentDTO() {
+        this.versionId = null;
+        this.firstAcceptance = null;
+    }
 
-    @JsonProperty("consents")
-    private List<ConsentDTO> consents;
+    public PortalConsentDTO(String versionId) {
+        this.versionId = versionId;
+        this.firstAcceptance = null;
+    }
 
-    @JsonProperty("history")
-    private List<AcceptancesHistoryDTO> history;
+    public PortalConsentDTO(String versionId, Boolean firstAcceptance) {
+        this.versionId = versionId;
+        this.firstAcceptance = firstAcceptance;
+    }
+
 }
