@@ -33,6 +33,7 @@ microservice-chart:
 
   envSecret:
     aks-api-url: cstar-p-weu-prod01-aks-apiserver-url
+    APPLICATIONINSIGHTS_CONNECTION_STRING: appinsights-instrumentation-key
 #    ONETRUST_TOS_ID: TODO
 
   keyvault:
