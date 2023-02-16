@@ -2,6 +2,7 @@ package it.gov.pagopa.connector.onetrust;
 
 import it.gov.pagopa.dto.onetrust.PrivacyNoticesDTO;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -11,10 +12,15 @@ import java.time.format.DateTimeFormatter;
 @Slf4j
 public class OneTrustRestServiceImpl implements OneTrustRestService {
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+    private static final String BEARER = "Bearer ";
 
+    private final String bearerToken;
     private final OneTrustRestClient oneTrustClient;
 
-    public OneTrustRestServiceImpl(OneTrustRestClient oneTrustClient) {
+    public OneTrustRestServiceImpl(
+            @Value("${app.rest-client.one-trust.service.privacy-notices.apiKey}") String bearerToken,
+            OneTrustRestClient oneTrustClient) {
+        this.bearerToken = BEARER + bearerToken;
         this.oneTrustClient = oneTrustClient;
     }
 
@@ -34,6 +40,6 @@ public class OneTrustRestServiceImpl implements OneTrustRestService {
         String dateFormatted = date.format(DATE_FORMATTER);
 
         log.info("[CONSENTS] Calling OneTrust to get current active version of privacy notices");
-        return oneTrustClient.getPrivacyNotices(id, dateFormatted);
+        return oneTrustClient.getPrivacyNotices(id, dateFormatted, bearerToken);
     }
 }

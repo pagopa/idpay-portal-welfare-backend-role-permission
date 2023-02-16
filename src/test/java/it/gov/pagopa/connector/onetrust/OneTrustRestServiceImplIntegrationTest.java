@@ -23,9 +23,9 @@ import org.springframework.test.context.TestPropertySource;
         HttpMessageConvertersAutoConfiguration.class
 })
 @TestPropertySource(properties = {
-        "app.onetrust.privacy-notices.client.url=http://localhost:${wiremock.server.port}"
+        "app.rest-client.one-trust.service.privacy-notices.base-url=http://localhost:${wiremock.server.port}"
 })
-@AutoConfigureWireMock(stubs = "classpath:/stub/onetrust", port = 0)
+@AutoConfigureWireMock(stubs = "classpath:/stub", port = 0)
 class OneTrustRestServiceImplIntegrationTest {
     private static final String EXPECTED_VERSION_ID = "mock-version-id";
 

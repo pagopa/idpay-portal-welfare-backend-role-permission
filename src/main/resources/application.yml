@@ -16,10 +16,14 @@ logging:
     org.springframework.data: ${LOG_LEVEL_SPRING_DATA:debug}
 
 app:
-  onetrust:
-    privacy-notices:
-      client.url: ${ONETRUST_PRIVACYNOTICES_URL:https://api-io.dev.cstar.pagopa.it/idpay/mock/api/privacynotice/v2}
-      tos.id: ${ONETRUST_TOS_ID:123}
+  rest-client:
+    one-trust:
+      service:
+        name: one-trust
+        privacy-notices:
+          base-url: ${ONE_TRUST_PRIVACYNOTICES_BASE_URL:https://api-io.dev.cstar.pagopa.it/idpay/mock/api/privacynotice/v2}
+          tosId: ${ONE_TRUST_TOS_ID:123}
+          apiKey: ${IO_BACKEND_SERVICE_SUBSCRIPTION_API_KEY:fake-api-key}
 
 #Management Actuator
 management:
