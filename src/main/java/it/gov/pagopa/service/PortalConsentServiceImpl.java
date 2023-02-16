@@ -32,7 +32,7 @@ public class PortalConsentServiceImpl implements PortalConsentService {
             PortalConsentRepository portalConsentRepository,
             OneTrustRestService oneTrustRestService,
             PrivacyNotices2PortalConsentDTOMapper privacyNotices2PortalConsentDTOMapper,
-            @Value("${app.onetrust.privacy-notices.tos.id}") String tosId) {
+            @Value("${app.rest-client.one-trust.service.privacy-notices.tosId}") String tosId) {
         this.portalConsentRepository = portalConsentRepository;
         this.oneTrustRestService = oneTrustRestService;
         this.privacyNotices2PortalConsentDTOMapper = privacyNotices2PortalConsentDTOMapper;
