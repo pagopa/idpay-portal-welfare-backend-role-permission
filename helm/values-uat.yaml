@@ -34,14 +34,10 @@ microservice-chart:
   envSecret:
     aks-api-url: cstar-u-weu-uat01-aks-apiserver-url
     APPLICATIONINSIGHTS_CONNECTION_STRING: appinsights-instrumentation-key
-#    ONETRUST_TOS_ID: TODO
 
   keyvault:
     name: "cstar-u-idpay-kv"
     tenantId: "7788edaf-0346-4068-9d79-c868aed15b3d"
-
-#  envConfig:
-#    ONETRUST_PRIVACYNOTICES_URL: TODO
 
   # nodeSelector: {}
 
