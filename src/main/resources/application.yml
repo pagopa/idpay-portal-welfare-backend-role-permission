@@ -6,14 +6,6 @@ spring:
     mongodb:
       database: ${MONGODB_DBNAME}
       uri: ${MONGODB_URI}
-#  profiles:
-#    include: 
-#    - swaggerEN
-
-#logging
-logging:
-  level:
-    org.springframework.data: ${LOG_LEVEL_SPRING_DATA:debug}
 
 app:
   rest-client:
@@ -31,3 +23,14 @@ management:
     web:
       exposure:
         include: info, health
+
+logging:
+  level:
+    root: ${LOG_LEVEL_ROOT:INFO}
+    it.gov.pagopa: ${LOG_LEVEL_PAGOPA:INFO}
+    org.springframework.data: ${LOG_LEVEL_SPRING_DATA:INFO}
+    org.springframework.boot: ${LOG_LEVEL_SPRING_BOOT:INFO}
+    io.swagger: ${LOG_LEVEL_IO_SWAGGER:WARN}
+    javax.persistence: ${LOG_LEVEL_JAVAX_PERSISTENCE:INFO}
+    org.hibernate: ${LOG_LEVEL_ORG_HIBERNATE:INFO}
+    org.mongodb.driver: ${LOG_LEVEL_MONGODB_DRIVER:WARN}
