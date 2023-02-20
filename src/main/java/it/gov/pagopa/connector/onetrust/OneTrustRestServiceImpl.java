@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 @Service
 @Slf4j
 public class OneTrustRestServiceImpl implements OneTrustRestService {
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");
     private static final String BEARER = "Bearer ";
 
     private final String bearerToken;
