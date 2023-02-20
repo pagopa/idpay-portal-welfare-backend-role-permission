@@ -49,9 +49,12 @@ public class PortalConsentServiceImpl implements PortalConsentService {
 
         if (optional.isPresent()) {
             PortalConsent consent = optional.get();
-            return consent.getVersionId().equals(privacyNotices.getVersion().getId())
-                    ? EMPTY_PORTAL_CONSENT_DTO
-                    : privacyNotices2PortalConsentDTOMapper.apply(privacyNotices, false);
+            if (consent.getVersionId().equals(privacyNotices.getVersion().getId())) {
+                log.info("[CONSENTS] same version verified already accepted");
+                return EMPTY_PORTAL_CONSENT_DTO;
+            }
+            log.info("[CONSENTS] new version found. User should accept again");
+            return privacyNotices2PortalConsentDTOMapper.apply(privacyNotices, false);
         } else {
             return privacyNotices2PortalConsentDTOMapper.apply(privacyNotices, true);
         }
