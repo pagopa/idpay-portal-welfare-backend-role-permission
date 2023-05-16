@@ -68,10 +68,21 @@ microservice-chart:
 
   envConfig:
     MONGODB_DBNAME: idpay
+    APPLICATIONINSIGHTS_ROLE_NAME: "idpayportalwelfarebackendrolepermission"
+    APPLICATIONINSIGHTS_INSTRUMENTATION_LOGGING_LEVEL: "OFF"
+    APPLICATIONINSIGHTS_INSTRUMENTATION_MICROMETER_ENABLED: "false"
+    APPLICATIONINSIGHTS_PREVIEW_PROFILER_ENABLED: "false"
+
+  envConfigMapExternals:
+    idpay-common:
+      TZ: TZ
+    rest-client:
+      ONE_TRUST_PRIVACYNOTICES_BASE_URL: one_trust_privacynotice_base_url
 
   envSecret:
     MONGODB_URI: mongodb-connection-string
-
+    ONE_TRUST_TOS_ID: one-trust-tos-id
+    ONE_TRUST_API_KEY: one-trust-api-key
 
   # nodeSelector: {}
 

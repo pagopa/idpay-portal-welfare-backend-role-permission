@@ -1,7 +1,10 @@
 package it.gov.pagopa.service;
 
-import org.springframework.stereotype.Service;
+import it.gov.pagopa.dto.PortalConsentDTO;
 
-@Service
 public interface PortalConsentService {
+
+    PortalConsentDTO get(String userId);
+
+    void save(String userId, PortalConsentDTO consent);
 }
