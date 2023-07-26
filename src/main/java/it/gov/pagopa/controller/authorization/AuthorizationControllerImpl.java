@@ -5,12 +5,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import it.gov.pagopa.dto.UserPermissionDTO;
 import it.gov.pagopa.dto.request.header.TokenPayloadDTO;
 import it.gov.pagopa.service.RolePermissionService;
+import jakarta.servlet.http.HttpServletRequest;
+import java.util.Base64;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.Base64;
 
 @RestController
 public class AuthorizationControllerImpl implements AuthorizationController {
