@@ -1,7 +1,5 @@
 package it.gov.pagopa.exception;
 
-import com.mongodb.lang.NonNullApi;
-import com.mongodb.lang.Nullable;
 import it.gov.pagopa.dto.ErrorDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
