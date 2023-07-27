@@ -8,7 +8,7 @@ microservice-chart:
     httpGet:
       path: /actuator/health
       port: 8080
-    initialDelaySeconds: 60
+    initialDelaySeconds: 100
     failureThreshold: 6
     periodSeconds: 10
 
@@ -16,7 +16,7 @@ microservice-chart:
     httpGet:
       path: /actuator/health
       port: 8080
-    initialDelaySeconds: 60
+    initialDelaySeconds: 100
     failureThreshold: 6
     periodSeconds: 10
 
