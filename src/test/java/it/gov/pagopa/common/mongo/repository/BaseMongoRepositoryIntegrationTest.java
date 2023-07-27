@@ -6,6 +6,9 @@ import io.micrometer.core.instrument.binder.mongodb.MongoMetricsCommandListener;
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import it.gov.pagopa.common.mongo.MongoTestUtilitiesService;
 import it.gov.pagopa.common.mongo.config.MongoConfig;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import lombok.Data;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -29,27 +32,23 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.query.MongoEntityInformation;
 import org.springframework.data.mongodb.repository.support.MappingMongoEntityInformation;
-import org.springframework.data.util.ClassTypeInformation;
 import org.springframework.data.util.TypeInformation;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 @TestPropertySource(
         properties = {
-                "spring.mongodb.embedded.version=4.0.21",
+            "logging.level.de.flapdoodle.embed.mongo.spring.autoconfigure=WARN",
+            "de.flapdoodle.mongodb.embedded.version=4.0.21",
 
-                "spring.data.mongodb.database=idpay",
-                "spring.data.mongodb.config.connectionPool.maxSize: 100",
-                "spring.data.mongodb.config.connectionPool.minSize: 0",
-                "spring.data.mongodb.config.connectionPool.maxWaitTimeMS: 120000",
-                "spring.data.mongodb.config.connectionPool.maxConnectionLifeTimeMS: 0",
-                "spring.data.mongodb.config.connectionPool.maxConnectionIdleTimeMS: 120000",
-                "spring.data.mongodb.config.connectionPool.maxConnecting: 2",
+            "spring.data.mongodb.database=idpay",
+            "spring.data.mongodb.config.connectionPool.maxSize: 100",
+            "spring.data.mongodb.config.connectionPool.minSize: 0",
+            "spring.data.mongodb.config.connectionPool.maxWaitTimeMS: 120000",
+            "spring.data.mongodb.config.connectionPool.maxConnectionLifeTimeMS: 0",
+            "spring.data.mongodb.config.connectionPool.maxConnectionIdleTimeMS: 120000",
+            "spring.data.mongodb.config.connectionPool.maxConnecting: 2",
         })
 @ExtendWith(SpringExtension.class)
 @AutoConfigureDataMongo
@@ -82,7 +81,7 @@ class BaseMongoRepositoryIntegrationTest {
 
         @Bean
         public TestRepository configureTestRepository(MongoOperations mongoOperations) throws NoSuchFieldException {
-            ClassTypeInformation<TestCollection> testTypeInformation = ClassTypeInformation.from(TestCollection.class);
+            TypeInformation<TestCollection> testTypeInformation = TypeInformation.of(TestCollection.class);
             BasicMongoPersistentEntity<TestCollection> testPersistentEntity = new BasicMongoPersistentEntity<>(testTypeInformation);
             testPersistentEntity.addPersistentProperty(new BasicMongoPersistentProperty(
                     Property.of(testTypeInformation, TestCollection.class.getDeclaredField("id")),

@@ -12,9 +12,9 @@ import it.gov.pagopa.dto.ErrorDTO;
 import it.gov.pagopa.dto.UserPermissionDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * IdPay - Authorization Interface to retrieve functionalities's permissions
