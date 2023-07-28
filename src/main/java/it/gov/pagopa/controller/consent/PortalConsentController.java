@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Validated
 @RequestMapping("/idpay")
+@RestController
 public interface PortalConsentController {
     @Operation(
             operationId = "getPortalConsent",
