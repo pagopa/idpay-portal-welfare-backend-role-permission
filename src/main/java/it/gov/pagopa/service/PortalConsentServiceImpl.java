@@ -1,6 +1,5 @@
 package it.gov.pagopa.service;
 
-import it.gov.pagopa.common.web.exception.ClientException;
 import it.gov.pagopa.common.web.exception.ClientExceptionWithBody;
 import it.gov.pagopa.connector.onetrust.OneTrustRestService;
 import it.gov.pagopa.dto.PortalConsentDTO;

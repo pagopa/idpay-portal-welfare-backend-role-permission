@@ -12,9 +12,9 @@ import it.gov.pagopa.common.web.dto.ErrorDTO;
 import it.gov.pagopa.dto.UserPermissionDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * IdPay - Authorization Interface to retrieve functionalities's permissions
@@ -55,8 +55,7 @@ public interface AuthorizationController {
                     @SecurityRequirement(name = "bearerAuth")
             }
     )
-    @RequestMapping(
-            method = RequestMethod.GET,
+    @GetMapping(
             value = "/permissions/{role}",
             produces = { "application/json" }
     )
