@@ -4,15 +4,6 @@ import com.mongodb.event.CommandStartedEvent;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.binder.mongodb.MongoMetricsCommandListener;
 import jakarta.annotation.PreDestroy;
-import java.time.LocalTime;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.Value;
@@ -24,6 +15,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalTime;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * Utilities when performing Mongo tests
@@ -129,6 +130,7 @@ public class MongoTestUtilitiesService {
                         cleanUpsert(clone);
                         cleanFindAndModify(clone);
                         cleanInsert(clone);
+                        cleanAggregate(clone);
 
                         mongoCommands.add(new MongoCommand(
                                 event.getCommandName(),
@@ -167,6 +169,12 @@ public class MongoTestUtilitiesService {
                 private void cleanInsert(Document clone) {
                     if(clone.get("insert")!=null){
                         clearDocumentValues(clone, "documents");
+                    }
+                }
+
+                private void cleanAggregate(Document clone) {
+                    if(clone.get("aggregate")!=null){
+                        clearDocumentValues(clone, "pipeline");
                     }
                 }
 
