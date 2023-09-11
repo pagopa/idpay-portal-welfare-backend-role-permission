@@ -5,7 +5,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import it.gov.pagopa.dto.ErrorDTO;
+import it.gov.pagopa.common.web.dto.ErrorDTO;
 import it.gov.pagopa.dto.PortalConsentDTO;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;

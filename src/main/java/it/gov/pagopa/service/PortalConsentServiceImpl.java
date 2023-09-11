@@ -1,10 +1,10 @@
 package it.gov.pagopa.service;
 
+import it.gov.pagopa.common.web.exception.ClientExceptionWithBody;
 import it.gov.pagopa.connector.onetrust.OneTrustRestService;
 import it.gov.pagopa.dto.PortalConsentDTO;
 import it.gov.pagopa.dto.mapper.PrivacyNotices2PortalConsentDTOMapper;
 import it.gov.pagopa.dto.onetrust.PrivacyNoticesDTO;
-import it.gov.pagopa.exception.ClientException;
 import it.gov.pagopa.model.PortalConsent;
 import it.gov.pagopa.repository.PortalConsentRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -65,10 +65,11 @@ public class PortalConsentServiceImpl implements PortalConsentService {
         PrivacyNoticesDTO privacyNotices = oneTrustRestService.getPrivacyNotices(tosId);
 
         if (!consentDTO.getVersionId().equals(privacyNotices.getVersion().getId())) {
-            throw new ClientException(
+            throw new ClientExceptionWithBody(
+                    HttpStatus.BAD_REQUEST,
                     HttpStatus.BAD_REQUEST.value(),
-                    "[CONSENTS] Received version id does not match the active one",
-                    HttpStatus.BAD_REQUEST);
+                    "[CONSENTS] Received version id does not match the active one"
+                    );
         } else {
             PortalConsent consent = new PortalConsent(
                     userId,

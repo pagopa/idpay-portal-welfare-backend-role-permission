@@ -1,11 +1,11 @@
 package it.gov.pagopa.service;
 
+import it.gov.pagopa.common.web.exception.ClientException;
 import it.gov.pagopa.connector.onetrust.OneTrustRestService;
 import it.gov.pagopa.dto.PortalConsentDTO;
 import it.gov.pagopa.dto.mapper.PrivacyNotices2PortalConsentDTOMapper;
 import it.gov.pagopa.dto.onetrust.PrivacyNoticesDTO;
 import it.gov.pagopa.dto.onetrust.PrivacyNoticesVersion;
-import it.gov.pagopa.exception.ClientException;
 import it.gov.pagopa.model.PortalConsent;
 import it.gov.pagopa.repository.PortalConsentRepository;
 import org.junit.jupiter.api.Assertions;
