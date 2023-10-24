@@ -23,8 +23,12 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class MongoExceptionHandler {
 
-  @Autowired
   private ErrorManager errorManager;
+
+  @Autowired
+  public MongoExceptionHandler(ErrorManager errorManager) {
+    this.errorManager = errorManager;
+  }
 
   @ExceptionHandler(DataAccessException.class)
   protected ResponseEntity<ErrorDTO> handleDataAccessException(
