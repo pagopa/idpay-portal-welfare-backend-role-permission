@@ -10,8 +10,8 @@
     </parent>
 
     <groupId>it.gov.pagopa</groupId>
-    <artifactId>idpay-portal-welfare-backend-rolePermission-permission</artifactId>
-    <name>idpay-portal-welfare-backend-rolePermission-permission</name>
+    <artifactId>idpay-portal-welfare-backend-role-permission</artifactId>
+    <name>idpay-portal-welfare-backend-role-permission</name>
     <description>Portal Welfare BackEnd Role Permission</description>
     <version>1.1.1</version>
 
