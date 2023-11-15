@@ -12,7 +12,7 @@
 
     <groupId>it.gov.pagopa</groupId>
     <artifactId>idpay-portal-welfare-backend-rolePermission-permission</artifactId>
-    <version>1.1.1</version>
+    <version>1.1.2</version>
     <name>idpay-portal-welfare-backend-rolePermission-permission</name>
     <description>Portal Welfare BackEnd Role Permission</description>
     <properties>
