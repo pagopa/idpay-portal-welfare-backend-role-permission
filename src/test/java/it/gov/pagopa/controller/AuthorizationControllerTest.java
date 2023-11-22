@@ -101,7 +101,7 @@ class AuthorizationControllerTest {
     }
 
     @Test
-    public void shouldReturnPermission() throws Exception {
+    void shouldReturnPermission() throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
         UserPermissionDTO adminPermissionDTO = createAdminPermissionDTO();
         UserPermissionDTO dummyAdminPermissionDTO = new UserPermissionDTO();
