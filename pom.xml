@@ -13,7 +13,7 @@
     <artifactId>idpay-portal-welfare-backend-role-permission</artifactId>
     <name>idpay-portal-welfare-backend-role-permission</name>
     <description>Portal Welfare BackEnd Role Permission</description>
-    <version>1.1.3</version>
+    <version>1.1.4</version>
 
     <properties>
         <java.version>17</java.version>
@@ -59,6 +59,11 @@
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-ui</artifactId>
             <version>1.7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.janino</groupId>
+            <artifactId>janino</artifactId>
+            <version>3.1.10</version>
         </dependency>
 
         <!-- Security fixes -->
