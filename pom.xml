@@ -60,6 +60,11 @@
             <artifactId>springdoc-openapi-ui</artifactId>
             <version>1.7.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.codehaus.janino</groupId>
+            <artifactId>janino</artifactId>
+            <version>3.1.10</version>
+        </dependency>
 
         <!-- Security fixes -->
         <dependency>
