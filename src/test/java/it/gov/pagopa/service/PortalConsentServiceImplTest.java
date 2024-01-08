@@ -1,13 +1,16 @@
 package it.gov.pagopa.service;
 
 import it.gov.pagopa.common.web.exception.ClientException;
-import it.gov.pagopa.connector.onetrust.OneTrustRestService;
-import it.gov.pagopa.dto.PortalConsentDTO;
-import it.gov.pagopa.dto.mapper.PrivacyNotices2PortalConsentDTOMapper;
-import it.gov.pagopa.dto.onetrust.PrivacyNoticesDTO;
-import it.gov.pagopa.dto.onetrust.PrivacyNoticesVersion;
-import it.gov.pagopa.model.PortalConsent;
-import it.gov.pagopa.repository.PortalConsentRepository;
+import it.gov.pagopa.role.permission.exception.VersionNotMatchedException;
+import it.gov.pagopa.role.permission.onetrust.OneTrustRestService;
+import it.gov.pagopa.role.permission.dto.PortalConsentDTO;
+import it.gov.pagopa.role.permission.dto.mapper.PrivacyNotices2PortalConsentDTOMapper;
+import it.gov.pagopa.role.permission.dto.onetrust.PrivacyNoticesDTO;
+import it.gov.pagopa.role.permission.dto.onetrust.PrivacyNoticesVersion;
+import it.gov.pagopa.role.permission.model.PortalConsent;
+import it.gov.pagopa.role.permission.repository.PortalConsentRepository;
+import it.gov.pagopa.role.permission.service.PortalConsentService;
+import it.gov.pagopa.role.permission.service.PortalConsentServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -185,7 +188,7 @@ class PortalConsentServiceImplTest {
         Executable executable = () -> portalConsentService.save(USER_ID, input);
 
         // Then
-        Assertions.assertThrows(ClientException.class, executable);
+        Assertions.assertThrows(VersionNotMatchedException.class, executable);
         Mockito.verify(consentRepositoryMock, Mockito.never()).save(Mockito.any());
     }
     //endregion

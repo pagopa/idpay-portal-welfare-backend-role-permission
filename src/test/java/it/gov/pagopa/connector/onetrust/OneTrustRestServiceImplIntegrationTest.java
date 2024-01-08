@@ -1,8 +1,11 @@
 package it.gov.pagopa.connector.onetrust;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import it.gov.pagopa.config.RestConnectorConfig;
-import it.gov.pagopa.dto.onetrust.PrivacyNoticesDTO;
+import it.gov.pagopa.role.permission.config.RestConnectorConfig;
+import it.gov.pagopa.role.permission.dto.onetrust.PrivacyNoticesDTO;
+import it.gov.pagopa.role.permission.onetrust.OneTrustRestClient;
+import it.gov.pagopa.role.permission.onetrust.OneTrustRestService;
+import it.gov.pagopa.role.permission.onetrust.OneTrustRestServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

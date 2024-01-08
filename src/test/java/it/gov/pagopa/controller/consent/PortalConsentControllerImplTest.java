@@ -1,7 +1,8 @@
 package it.gov.pagopa.controller.consent;
 
-import it.gov.pagopa.dto.PortalConsentDTO;
-import it.gov.pagopa.service.PortalConsentService;
+import it.gov.pagopa.role.permission.controller.consent.PortalConsentControllerImpl;
+import it.gov.pagopa.role.permission.dto.PortalConsentDTO;
+import it.gov.pagopa.role.permission.service.PortalConsentService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -13,8 +14,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
-import java.util.Optional;
 
 @WebMvcTest(PortalConsentControllerImpl.class)
 class PortalConsentControllerImplTest {

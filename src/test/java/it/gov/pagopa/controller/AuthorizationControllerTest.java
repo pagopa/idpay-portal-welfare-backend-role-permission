@@ -1,14 +1,16 @@
 package it.gov.pagopa.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import it.gov.pagopa.controller.authorization.AuthorizationController;
-import it.gov.pagopa.dto.PermissionDTO;
-import it.gov.pagopa.dto.UserPermissionDTO;
-import it.gov.pagopa.exception.AuthorizationPermissionException;
-import it.gov.pagopa.model.Permission;
-import it.gov.pagopa.model.RolePermission;
-import it.gov.pagopa.repository.RolePermissionRepository;
-import it.gov.pagopa.service.RolePermissionService;
+import it.gov.pagopa.role.permission.config.ServiceExceptionConfig;
+import it.gov.pagopa.role.permission.constants.RolePermissionConstants;
+import it.gov.pagopa.role.permission.controller.authorization.AuthorizationController;
+import it.gov.pagopa.role.permission.dto.PermissionDTO;
+import it.gov.pagopa.role.permission.dto.UserPermissionDTO;
+import it.gov.pagopa.role.permission.exception.PermissionNotFoundException;
+import it.gov.pagopa.role.permission.model.Permission;
+import it.gov.pagopa.role.permission.model.RolePermission;
+import it.gov.pagopa.role.permission.repository.RolePermissionRepository;
+import it.gov.pagopa.role.permission.service.RolePermissionService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -16,17 +18,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
@@ -46,7 +44,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(MockitoExtension.class)
 @WebMvcTest(value = {
-        AuthorizationController.class}, excludeAutoConfiguration = SecurityAutoConfiguration.class)
+        AuthorizationController.class, ServiceExceptionConfig.class}, excludeAutoConfiguration = SecurityAutoConfiguration.class)
 @Slf4j
 class AuthorizationControllerTest {
 
@@ -133,22 +131,21 @@ class AuthorizationControllerTest {
 
     @Test
     void shouldReturnNotFound() throws Exception {
-        Mockito.doThrow(new AuthorizationPermissionException(HttpStatus.NOT_FOUND.value(),
-                String.format(RolePermissionService.PERMISSIONS_NOT_FOUND, ROLE)))
+        Mockito.doThrow(new PermissionNotFoundException(String.format(RolePermissionConstants.PERMISSIONS_NOT_FOUND_MSG, ROLE)))
                 .when(rolePermissionServiceMock).getUserPermission(anyString());
 
         MvcResult mvcResult = mvc.perform(get(BASE_URL + PERMISSIONS_URL + "/{role}", ROLE))
                 .andExpect(status().isNotFound())
-                .andExpect(getResult -> Assertions.assertTrue(getResult.getResolvedException() instanceof AuthorizationPermissionException))
+                .andExpect(getResult -> Assertions.assertTrue(getResult.getResolvedException() instanceof PermissionNotFoundException))
                 .andExpect(status().is4xxClientError())
                 .andDo(print())
                 .andReturn();
 
 
-        Optional<AuthorizationPermissionException> authorizationPermissionException = Optional.ofNullable((AuthorizationPermissionException) mvcResult.getResolvedException());
+        Optional<PermissionNotFoundException> authorizationPermissionException = Optional.ofNullable((PermissionNotFoundException) mvcResult.getResolvedException());
 
         authorizationPermissionException.ifPresent( (authExp) -> assertThat(authExp, is(notNullValue())));
-        authorizationPermissionException.ifPresent( (authExp) -> assertThat(authExp, is(instanceOf(AuthorizationPermissionException.class))));
+        authorizationPermissionException.ifPresent( (authExp) -> assertThat(authExp, is(instanceOf(PermissionNotFoundException.class))));
 
     }
 

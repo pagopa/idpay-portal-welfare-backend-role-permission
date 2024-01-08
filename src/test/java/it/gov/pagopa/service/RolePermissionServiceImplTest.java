@@ -1,12 +1,14 @@
 package it.gov.pagopa.service;
 
 
-import it.gov.pagopa.dto.PermissionDTO;
-import it.gov.pagopa.dto.UserPermissionDTO;
-import it.gov.pagopa.exception.AuthorizationPermissionException;
-import it.gov.pagopa.model.Permission;
-import it.gov.pagopa.model.RolePermission;
-import it.gov.pagopa.repository.RolePermissionRepository;
+import it.gov.pagopa.role.permission.constants.RolePermissionConstants;
+import it.gov.pagopa.role.permission.dto.PermissionDTO;
+import it.gov.pagopa.role.permission.dto.UserPermissionDTO;
+import it.gov.pagopa.role.permission.exception.PermissionNotFoundException;
+import it.gov.pagopa.role.permission.model.Permission;
+import it.gov.pagopa.role.permission.model.RolePermission;
+import it.gov.pagopa.role.permission.repository.RolePermissionRepository;
+import it.gov.pagopa.role.permission.service.RolePermissionService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,7 +17,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -105,7 +106,7 @@ class RolePermissionServiceImplTest {
         // you are expecting repo to be called once with correct param
         verify(rolePermissionRepository).findByRole(anyString());
 
-        assertEquals(rolePermission.getRole(), rolePermission.getRole());
+        assertEquals(rolePermission.getRole(), userPermission.getRole());
     }
 
     @Test
@@ -114,9 +115,9 @@ class RolePermissionServiceImplTest {
                 .thenReturn(Optional.empty());
         try {
             rolePermissionService.getUserPermission(anyString());
-        } catch (AuthorizationPermissionException e) {
+        } catch (PermissionNotFoundException e) {
             log.info("AuthorizationPermissionException: " + e.getCode());
-            assertEquals(HttpStatus.NOT_FOUND.value(), e.getCode());
+            assertEquals(RolePermissionConstants.ExceptionCode.PERMISSIONS_NOT_FOUND, e.getCode());
         }
     }
 

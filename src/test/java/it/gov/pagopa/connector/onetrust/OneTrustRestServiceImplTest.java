@@ -1,7 +1,10 @@
 package it.gov.pagopa.connector.onetrust;
 
-import it.gov.pagopa.dto.onetrust.PrivacyNoticesDTO;
-import it.gov.pagopa.dto.onetrust.PrivacyNoticesVersion;
+import it.gov.pagopa.role.permission.dto.onetrust.PrivacyNoticesDTO;
+import it.gov.pagopa.role.permission.dto.onetrust.PrivacyNoticesVersion;
+import it.gov.pagopa.role.permission.onetrust.OneTrustRestClient;
+import it.gov.pagopa.role.permission.onetrust.OneTrustRestService;
+import it.gov.pagopa.role.permission.onetrust.OneTrustRestServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
