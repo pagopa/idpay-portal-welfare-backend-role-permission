@@ -6,7 +6,7 @@ public final class RolePermissionConstants {
     private RolePermissionConstants(){}
 
     public static final class ExceptionCode {
-        public static final String PERMISSIONS_NOT_FOUND = "ROLE_PERMISSIONS_NOT_FOUND";
+        public static final String PERMISSIONS_NOT_FOUND = "ROLE_PERMISSION_NOT_FOUND";
         public static final String VERSION_NOT_MATCHED = "ROLE_PERMISSION_VERSION_NOT_MATCHED";
         public static final String GENERIC_ERROR = "ROLE_PERMISSION_GENERIC_ERROR";
         public static final String TOO_MANY_REQUESTS = "ROLE_PERMISSION_TOO_MANY_REQUESTS";
