@@ -1,4 +1,4 @@
-package it.gov.pagopa.role.permission.onetrust;
+package it.gov.pagopa.role.permission.connector.onetrust;
 
 import it.gov.pagopa.role.permission.dto.onetrust.PrivacyNoticesDTO;
 import lombok.extern.slf4j.Slf4j;

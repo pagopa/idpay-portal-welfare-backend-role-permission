@@ -1,16 +1,13 @@
-package it.gov.pagopa.service;
+package it.gov.pagopa.role.permission.service;
 
-import it.gov.pagopa.common.web.exception.ClientException;
 import it.gov.pagopa.role.permission.exception.VersionNotMatchedException;
-import it.gov.pagopa.role.permission.onetrust.OneTrustRestService;
+import it.gov.pagopa.role.permission.connector.onetrust.OneTrustRestService;
 import it.gov.pagopa.role.permission.dto.PortalConsentDTO;
 import it.gov.pagopa.role.permission.dto.mapper.PrivacyNotices2PortalConsentDTOMapper;
 import it.gov.pagopa.role.permission.dto.onetrust.PrivacyNoticesDTO;
 import it.gov.pagopa.role.permission.dto.onetrust.PrivacyNoticesVersion;
 import it.gov.pagopa.role.permission.model.PortalConsent;
 import it.gov.pagopa.role.permission.repository.PortalConsentRepository;
-import it.gov.pagopa.role.permission.service.PortalConsentService;
-import it.gov.pagopa.role.permission.service.PortalConsentServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -1,8 +1,7 @@
 package it.gov.pagopa.role.permission.service;
 
-import it.gov.pagopa.common.web.exception.ClientExceptionWithBody;
 import it.gov.pagopa.role.permission.exception.VersionNotMatchedException;
-import it.gov.pagopa.role.permission.onetrust.OneTrustRestService;
+import it.gov.pagopa.role.permission.connector.onetrust.OneTrustRestService;
 import it.gov.pagopa.role.permission.dto.PortalConsentDTO;
 import it.gov.pagopa.role.permission.dto.mapper.PrivacyNotices2PortalConsentDTOMapper;
 import it.gov.pagopa.role.permission.dto.onetrust.PrivacyNoticesDTO;
@@ -10,7 +9,6 @@ import it.gov.pagopa.role.permission.model.PortalConsent;
 import it.gov.pagopa.role.permission.repository.PortalConsentRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

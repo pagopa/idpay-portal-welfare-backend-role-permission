@@ -1,4 +1,4 @@
-package it.gov.pagopa.controller;
+package it.gov.pagopa.role.permission.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.gov.pagopa.role.permission.config.ServiceExceptionConfig;

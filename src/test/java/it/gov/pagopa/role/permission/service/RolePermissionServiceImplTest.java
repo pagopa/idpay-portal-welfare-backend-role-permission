@@ -1,4 +1,4 @@
-package it.gov.pagopa.service;
+package it.gov.pagopa.role.permission.service;
 
 
 import it.gov.pagopa.role.permission.constants.RolePermissionConstants;

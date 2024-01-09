@@ -1,7 +1,7 @@
 package it.gov.pagopa.role.permission.constants;
 
 public final class RolePermissionConstants {
-    public static final String PERMISSIONS_NOT_FOUND_MSG = "Permissions not found for [%s] role.";
+    public static final String PERMISSIONS_NOT_FOUND_MSG = "Permissions not found for [%s] role";
 
     private RolePermissionConstants(){}
 
