@@ -51,7 +51,6 @@
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
 
-
         <!--3rd party library-->
         <dependency>
             <groupId>org.projectlombok</groupId>
