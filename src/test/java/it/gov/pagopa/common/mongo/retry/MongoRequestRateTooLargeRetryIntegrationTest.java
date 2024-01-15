@@ -56,6 +56,8 @@ class MongoRequestRateTooLargeRetryIntegrationTest {
     @Value("${mongo.request-rate-too-large.batch.max-millis-elapsed:0}")
     private int maxMillisElapsed;
 
+    public static final String EXPECTED_TOO_MANY_REQUESTS_ERROR = "{\"code\":\"TOO_MANY_REQUESTS\",\"message\":\"Too Many Requests\"}";
+
     private static final int API_RETRYABLE_MAX_RETRY = 5;
 
     @SpyBean
@@ -113,7 +115,7 @@ class MongoRequestRateTooLargeRetryIntegrationTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/test")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isTooManyRequests())
-                .andExpect(MockMvcResultMatchers.content().json("{\"message\":\"TOO_MANY_REQUESTS\"}", false));
+                .andExpect(MockMvcResultMatchers.content().json(EXPECTED_TOO_MANY_REQUESTS_ERROR, false));
 
         Assertions.assertEquals(1, counter[0]);
     }
@@ -123,7 +125,7 @@ class MongoRequestRateTooLargeRetryIntegrationTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/test-api-retryable")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isTooManyRequests())
-                .andExpect(MockMvcResultMatchers.content().json("{\"message\":\"TOO_MANY_REQUESTS\"}", false));
+                .andExpect(MockMvcResultMatchers.content().json(EXPECTED_TOO_MANY_REQUESTS_ERROR, false));
 
         Assertions.assertEquals(counter[0], API_RETRYABLE_MAX_RETRY + 1);
     }
