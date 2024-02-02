@@ -6,14 +6,14 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.1</version>
+        <version>3.2.2</version>
     </parent>
 
     <groupId>it.gov.pagopa</groupId>
     <artifactId>idpay-portal-welfare-backend-role-permission</artifactId>
     <name>idpay-portal-welfare-backend-role-permission</name>
     <description>Portal Welfare BackEnd Role Permission</description>
-    <version>1.2.0</version>
+    <version>1.2.1</version>
 
     <properties>
         <java.version>17</java.version>
