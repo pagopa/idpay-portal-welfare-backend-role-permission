@@ -7,7 +7,7 @@ microservice-chart:
   livenessProbe:
     handlerType: httpGet
     httpGet:
-      path: /actuator/health
+      path: /actuator/health/liveness
       port: 8080
     initialDelaySeconds: 150
     failureThreshold: 10
@@ -16,7 +16,7 @@ microservice-chart:
   readinessProbe:
     handlerType: httpGet
     httpGet:
-      path: /actuator/health
+      path: /actuator/health/readiness
       port: 8080
     initialDelaySeconds: 150
     failureThreshold: 10
@@ -79,6 +79,7 @@ microservice-chart:
     APPLICATIONINSIGHTS_INSTRUMENTATION_LOGGING_LEVEL: "OFF"
     APPLICATIONINSIGHTS_INSTRUMENTATION_MICROMETER_ENABLED: "false"
     APPLICATIONINSIGHTS_PREVIEW_PROFILER_ENABLED: "false"
+    HEALTH_MONGO_ENABLED: "false"
 
   externalConfigMapValues:
     idpay-common:
