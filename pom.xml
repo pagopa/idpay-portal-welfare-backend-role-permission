@@ -111,24 +111,24 @@
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-codec-http</artifactId>
-            <version>4.1.118.Final</version>
+            <version>4.2.0.RC3</version>
         </dependency>
 
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-handler</artifactId>
-            <version>4.1.118.Final</version>
+            <version>4.2.0.RC3</version>
         </dependency>
 
         <dependency>
             <groupId>io.projectreactor.netty</groupId>
             <artifactId>reactor-netty-http</artifactId>
-            <version>1.1.16</version>
+            <version>1.2.3</version>
         </dependency>
         <dependency>
             <groupId>io.projectreactor.netty</groupId>
             <artifactId>reactor-netty-core</artifactId>
-            <version>1.1.16</version>
+            <version>1.2.3</version>
         </dependency>
     </dependencies>
 
