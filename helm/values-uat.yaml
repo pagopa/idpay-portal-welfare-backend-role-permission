@@ -50,7 +50,7 @@ microservice-chart:
       -Dio.netty.eventLoopThreads=100 
       -javaagent:/app/applicationinsights-agent.jar 
       -Dapplicationinsights.configuration.file=/mnt/file-config-external/appinsights-config/applicationinsights.json
-
+      
   # nodeSelector: {}
 
   # tolerations: []
