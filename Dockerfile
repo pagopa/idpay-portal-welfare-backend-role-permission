@@ -11,7 +11,7 @@ RUN mvn clean package -DskipTests
 #
 # Docker RUNTIME
 #
-FROM amazoncorretto:17-alpine3.20@sha256:38b44a49bfd11b925015b281d3d35c845daaeca5f0e3827f8e1df9bedf7b256a AS runtime
+FROM amazoncorretto:17-alpine3.20@sha256:4ad5194e923e28fb7298b473431a8445a5500a675e5be0a4ad223b8001b3051d AS runtime
 
 RUN apk --no-cache add shadow
 RUN useradd --uid 10000 runner
