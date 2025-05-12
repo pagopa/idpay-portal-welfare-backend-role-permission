@@ -1,7 +1,7 @@
 #
 # Build
 #
-FROM maven:3.9.6-amazoncorretto-17-al2023@sha256:5299e12f17662de69135f9a552443ba77c2e0bc8c4b50c8568a556035eaca5aa AS buildtime
+FROM maven:3.9.6-amazoncorretto-17-al2023@sha256:4bc1bac52539736fcb6c1a1156d15b60fb0d0ebb952285f84f3b79ef0b654e37 AS buildtime
 
 WORKDIR /build
 COPY . .
