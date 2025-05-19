@@ -34,7 +34,6 @@ microservice-chart:
   ingress:
     create: true
     path: /idpayportalwelfarebackendrolepermission/(.*)
-    servicePort: 8080
 
   serviceAccount:
     create: false
