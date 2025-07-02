@@ -23,4 +23,5 @@ public class PortalConsentControllerImpl implements PortalConsentController {
     public void savePortalConsent(String userId, PortalConsentDTO consent) {
         portalConsentService.save(userId, consent);
     }
+    
 }

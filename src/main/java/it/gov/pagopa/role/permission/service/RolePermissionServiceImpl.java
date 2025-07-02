@@ -17,7 +17,6 @@ import java.util.List;
 public class RolePermissionServiceImpl implements RolePermissionService {
 
     private final RolePermissionRepository rolePermissionRepository;
-
     public RolePermissionServiceImpl(RolePermissionRepository rolePermissionRepository) {
         this.rolePermissionRepository = rolePermissionRepository;
     }
